@@ -12,6 +12,9 @@ public:
     Point3 at(const double t) const {
         return origin + (t * direction);
     }
+    Point3 operator[](const double t) const {
+        return origin + (t * direction);
+    }
 };
 
 }
