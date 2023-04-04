@@ -23,4 +23,10 @@ double randomDouble(double min, double max) {
     return min + (max - min) * randomDouble();
 }
 
+double clamp(const double x, const double min, const double max) {
+    if (x < min) return min;
+    if (x > max) return max;
+    return x;
+}
+
 }
