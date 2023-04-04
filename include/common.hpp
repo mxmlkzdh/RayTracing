@@ -1,6 +1,6 @@
 #pragma once
 #include <limits>
-#include <cstdlib>
+#include <random>
 
 namespace RayTracing {
 
@@ -13,7 +13,9 @@ double degreesToRadians(const double degrees) {
 
 double randomDouble() {
     // Returns a random real in [0,1).
-    return rand() / (RAND_MAX + 1.0);
+    static std::uniform_real_distribution<double> distribution(0.0, 1.0);
+    static std::mt19937 generator;
+    return distribution(generator);
 }
 
 double randomDouble(double min, double max) {
