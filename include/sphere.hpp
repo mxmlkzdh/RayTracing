@@ -5,12 +5,12 @@ namespace RayTracing {
 
 class Sphere: public Hittable {
 public:
-    Point3 center;
+    Point3D center;
     double radius;
 public:
-    Sphere(const Point3& center, const double radius): center(center), radius(radius) {};
+    Sphere(const Point3D& center, const double radius): center(center), radius(radius) {};
     virtual bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
-        Vector3 oc = ray.origin - center;
+        Vector3D oc = ray.origin - center;
         const double a = dot(ray.direction, ray.direction);
         const double b = 2 * dot(ray.direction, oc);
         const double c = dot(oc, oc) - radius * radius;

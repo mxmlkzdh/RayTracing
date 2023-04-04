@@ -5,14 +5,14 @@ namespace RayTracing {
 
 class Ray {
 public:
-    Point3 origin;
-    Vector3 direction;
+    Point3D origin;
+    Vector3D direction;
 public:
-    Ray(const Point3& origin, const Vector3& direction): origin(origin), direction(direction) {}
-    Point3 at(const double t) const {
+    Ray(const Point3D& origin, const Vector3D& direction): origin(origin), direction(direction) {}
+    Point3D at(const double t) const {
         return origin + (t * direction);
     }
-    Point3 operator[](const double t) const {
+    Point3D operator[](const double t) const {
         return origin + (t * direction);
     }
 };
