@@ -10,6 +10,7 @@ private:
     std::vector<std::shared_ptr<Hittable>> objects;
 public:
     HittableList() = default;
+    ~HittableList() {};
     HittableList(const std::shared_ptr<Hittable> object) {
         add(object);
     };
