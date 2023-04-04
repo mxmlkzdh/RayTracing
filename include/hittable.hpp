@@ -6,7 +6,12 @@ namespace RayTracing {
 struct HitRecord {
     Point point;
     double t;
+    bool frontFace;
     Vector3D normal;
+    void setFaceNormal(const Ray& ray, const Vector3D& outwardNormal) {
+        frontFace = dot(ray.direction, outwardNormal) < 0;
+        normal = frontFace ? outwardNormal : -outwardNormal;
+    }
 };
 
 class Hittable {
