@@ -29,7 +29,8 @@ public:
         // Update the HitRecord
         record.t = root;
         record.point = ray.at(record.t);
-        record.normal = (record.point - center) / radius;
+        Vector3D outwardNormal = (record.point - center) / radius;
+        record.setFaceNormal(ray, outwardNormal);
         return true;
     }
 };
