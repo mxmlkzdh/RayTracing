@@ -15,7 +15,6 @@ add_executable(main src/main.cpp)
 include_directories("include")
 include_directories("external")
 
-
 if (GTEST_CMAKE_TESTING) 
     include(CTest)
     enable_testing()
