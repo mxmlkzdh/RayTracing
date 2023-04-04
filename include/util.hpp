@@ -12,11 +12,10 @@ public:
     Timer() { mStart = std::chrono::high_resolution_clock::now(); }
     ~Timer() {
         std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
-        std::cout << "(" <<
-            std::chrono::duration_cast<std::chrono::milliseconds>(end - mStart).count() << " ms, " <<
-            std::chrono::duration_cast<std::chrono::microseconds>(end - mStart).count() << " μs, " <<
-            std::chrono::duration_cast<std::chrono::nanoseconds>(end - mStart).count() << " ns)" <<
-            std::endl;
+        long long millis = std::chrono::duration_cast<std::chrono::milliseconds>(end - mStart).count();
+        long long micros = std::chrono::duration_cast<std::chrono::microseconds>(end - mStart).count();
+        long long nanos = std::chrono::duration_cast<std::chrono::nanoseconds>(end - mStart).count();
+        std::cout << "(" << millis << " ms, " << micros << " μs, " << nanos << " ns)" << std::endl;
     }
 };
 
