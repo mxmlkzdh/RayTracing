@@ -4,7 +4,7 @@
 namespace RayTracing {
 
 struct HitRecord {
-    Point3D point;
+    Point point;
     double t;
     Vector3D normal;
 };

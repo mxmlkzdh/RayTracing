@@ -16,7 +16,7 @@ public:
 };
 
 // Type aliases for Vector3D
-using Point3D = Vector3D;
+using Point = Vector3D;
 using Color = Vector3D;
 
 // Vector3D Utility Operators and Functions
