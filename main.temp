@@ -1,0 +1,66 @@
+/*
+using namespace RayTracing;
+
+Color rayColor(const Ray& ray, const HittableList& world, const int depth) {
+    // If we've exceeded the ray bounce limit, no more light is gathered.
+    if (depth <= 0) {
+        return Color(0, 0, 0);
+    }
+    HitRecord record;
+    if (world.hit(ray, 0.001, RayTracing::infinity, record)) {
+        Point target = record.point + record.normal + randomInUnitSphere();
+        return 0.5 * rayColor(Ray(record.point, target - record.point), world, depth - 1);
+    }
+    Vector3D direction = unit(ray.direction);
+    double t = 0.5 * (direction.y + 1.0);
+    return ((1.0 - t) * Color(1.0, 1.0, 1.0)) + (t * Color(0.5, 0.75, 1.0));
+}
+
+int main(int, char const**) {
+
+    // Automatically benchmarks the execution of a code block in milli, micro, and nano seconds.
+    Util::Timer timer;
+
+    // Image
+    const double aspectRatio = 16.0 / 9.0;
+    const int imageWidth = 800;
+    const int imageHeight = static_cast<int>(imageWidth / aspectRatio);
+    const int samplesPerPixel = 250;
+    const int depth = 50;
+
+    // World
+    HittableList world;
+    world.add(std::make_shared<Sphere>(Point(0, 0, -1), 0.5));
+    world.add(std::make_shared<Sphere>(Point(0, -100.5, -1), 100));
+
+    // Camera
+    Camera camera;
+
+    // Render
+    std::ofstream outputFile;
+    outputFile.open(OUTPUT_FILE);
+    if (outputFile.is_open()) {
+        outputFile << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
+        std::cout << "\rTotal scanlines: " << imageHeight << std::endl;
+        for (int j = imageHeight - 1; j >= 0; j--) {
+            std::cout << "\rScanlines remaining: " << j << ' ' << std::flush;
+            for (int i = 0; i < imageWidth; i++) {
+                Color pixelColor(0, 0, 0);
+                for (int k = 0; k < samplesPerPixel; k++) {
+                    double u = double(i + randomDouble()) / (imageWidth - 1);
+                    double v = double(j + randomDouble()) / (imageHeight - 1);
+                    Ray ray = camera.getRay(u, v);
+                    pixelColor = pixelColor + rayColor(ray, world, depth);
+                }
+                writeColor(outputFile, pixelColor, samplesPerPixel);
+            }
+        }
+        std::cout << "\nDone!\n";
+    }
+    outputFile.close();
+    system("open /Users/max/development/cpp/raytracing/data/output.ppm");
+
+    return EXIT_SUCCESS;
+
+}
+*/
