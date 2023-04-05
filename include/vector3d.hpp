@@ -1,6 +1,7 @@
 #pragma once
 #include <cmath>
 #include <iostream>
+#include "common.hpp"
 
 namespace RayTracing {
 
@@ -53,6 +54,36 @@ Vector3D cross(const Vector3D& lhs, const Vector3D& rhs) {
 }
 Vector3D unit(const Vector3D& vector) {
     return vector / vector.length();
+}
+
+static Vector3D random() {
+    return Vector3D(randomDouble(), randomDouble(), randomDouble());
+}
+
+static Vector3D random(double min, double max) {
+    return Vector3D(randomDouble(min, max), randomDouble(min, max), randomDouble(min, max));
+}
+
+static Vector3D randomInUnitSphere() {
+    while (true) {
+        Vector3D randomVector = random(-1, 1);
+        if (dot(randomVector, randomVector) >= 1) continue;
+        return randomVector;
+    }
+}
+
+static Vector3D randomUnitSphere() {
+    return unit(randomInUnitSphere());
+}
+
+Vector3D randomInHemisphere(const Vector3D& normal) {
+    Vector3D inUnitSphere = randomInUnitSphere();
+    if (dot(inUnitSphere, normal) > 0.0) { // In the same hemisphere as the normal
+
+        return inUnitSphere;
+    } else {
+        return -inUnitSphere;
+    }
 }
 
 }
