@@ -11,7 +11,7 @@ void writeColor(std::ofstream& outputFile, const Color& pixelColor, const int sa
     double g = pixelColor.y;
     double b = pixelColor.z;
     // Divide the color by the number of samples.
-    auto scale = 1.0 / samplesPerPixel;
+    const double scale = 1.0 / samplesPerPixel;
     r *= scale;
     g *= scale;
     b *= scale;
