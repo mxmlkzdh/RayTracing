@@ -26,12 +26,12 @@ int main(int, char const**) {
     // Camera
     const double FOCAL_LENGTH = 1.0;
     const double VIEWPORT_WIDTH = 4.0;
-    const double VIEWPORT_HEIGHT = static_cast<int>(VIEWPORT_WIDTH / ASPECT_RATIO);
+    const double VIEWPORT_HEIGHT = VIEWPORT_WIDTH / ASPECT_RATIO;
 
     const RayTracing::Point ORIGIN = RayTracing::Point(0, 0, 0);
     const RayTracing::Vector3 HORIZONTAL = RayTracing::Vector3(VIEWPORT_WIDTH, 0, 0);
     const RayTracing::Vector3 VERTICAL = RayTracing::Vector3(0, VIEWPORT_HEIGHT, 0);
-    const RayTracing::Vector3 LOWER_LEFT_CORNER = ORIGIN - HORIZONTAL / 2 - VERTICAL / 2 - RayTracing::Vector3(0, 0, FOCAL_LENGTH);
+    const RayTracing::Vector3 LOWER_LEFT_CORNER = ORIGIN - (HORIZONTAL / 2) - (VERTICAL / 2) - RayTracing::Vector3(0, 0, FOCAL_LENGTH);
 
     // Render
     std::ofstream outputFile;
@@ -44,7 +44,7 @@ int main(int, char const**) {
             for (int i = 0; i < IMAGE_WIDTH; i++) {
                 double u = static_cast<double>(i) / (IMAGE_WIDTH - 1);
                 double v = static_cast<double>(j) / (IMAGE_HEIGHT - 1);
-                RayTracing::Ray ray(ORIGIN, LOWER_LEFT_CORNER + u * HORIZONTAL + v * VERTICAL - ORIGIN);
+                RayTracing::Ray ray(ORIGIN, LOWER_LEFT_CORNER + (u * HORIZONTAL) + (v * VERTICAL) - ORIGIN);
                 RayTracing::Color color = computePixelColor(ray);
                 RayTracing::writePixel(outputFile, color);
             }
