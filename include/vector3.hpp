@@ -10,6 +10,7 @@ struct Vector3 {
     double y;
     double z;
 
+    Vector3() = default;
     Vector3(const double x, const double y, const double z): x(x), y(y), z(z) {}
     double length() const {
         return std::sqrt(x * x + y * y + z * z);
