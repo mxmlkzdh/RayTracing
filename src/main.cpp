@@ -1,4 +1,5 @@
 // #include <spdlog/spdlog.h>
+#include <argh/argh.h>
 #include <iostream>
 #include <fstream>
 #include "util.hpp"
@@ -24,14 +25,18 @@ RayTracing::Color computePixelColor(const RayTracing::Ray& ray) {
     return ((1.0 - t) * RayTracing::Color(1.0, 1.0, 1.0)) + (t * RayTracing::Color(0.5, 0.75, 1.0));
 }
 
-int main(int, char const**) {
+int main(int argc, char const* argv[]) {
 
     // Automatically benchmarks the execution of this code block (main) in milli, micro, and nano seconds.
     RayTracing::Util::Timer timer;
 
+    argh::parser cmdl = argh::parser(argc, argv);
+
     // Image
     const double ASPECT_RATIO = 16.0 / 9.0;
-    const int IMAGE_WIDTH = 400;
+    int width;
+    cmdl({"-w", "--width"}, 400) >> width;
+    const int IMAGE_WIDTH = width;
     const int IMAGE_HEIGHT = static_cast<int>(IMAGE_WIDTH / ASPECT_RATIO);
 
     // Camera
