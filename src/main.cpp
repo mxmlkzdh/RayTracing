@@ -7,8 +7,10 @@
 
 #define OUTPUT_FILE_PATH "data/output.ppm"
 
-RayTracing::Color computeRayColor(const RayTracing::Ray& ray) {
-    return RayTracing::Color(ray.direction.x, ray.direction.y, ray.direction.z);
+RayTracing::Color computePixelColor(const RayTracing::Ray& ray) {
+    RayTracing::Vector3 unit = RayTracing::unitDirection(ray.direction);
+    double t = 0.5 * (unit.y + 1.0);
+    return ((1.0 - t) * RayTracing::Color(1.0, 1.0, 1.0)) + (t * RayTracing::Color(0.5, 0.75, 1.0));
 }
 
 int main(int, char const**) {
@@ -18,8 +20,18 @@ int main(int, char const**) {
 
     // Image
     const double ASPECT_RATIO = 16.0 / 9.0;
-    const int IMAGE_WIDTH = 800;
+    const int IMAGE_WIDTH = 400;
     const int IMAGE_HEIGHT = static_cast<int>(IMAGE_WIDTH / ASPECT_RATIO);
+
+    // Camera
+    const double FOCAL_LENGTH = 1.0;
+    const double VIEWPORT_WIDTH = 4.0;
+    const double VIEWPORT_HEIGHT = static_cast<int>(VIEWPORT_WIDTH / ASPECT_RATIO);
+
+    const RayTracing::Point ORIGIN = RayTracing::Point(0, 0, 0);
+    const RayTracing::Vector3 HORIZONTAL = RayTracing::Vector3(VIEWPORT_WIDTH, 0, 0);
+    const RayTracing::Vector3 VERTICAL = RayTracing::Vector3(0, VIEWPORT_HEIGHT, 0);
+    const RayTracing::Vector3 LOWER_LEFT_CORNER = ORIGIN - HORIZONTAL / 2 - VERTICAL / 2 - RayTracing::Vector3(0, 0, FOCAL_LENGTH);
 
     // Render
     std::ofstream outputFile;
@@ -30,13 +42,10 @@ int main(int, char const**) {
         for (int j = IMAGE_HEIGHT - 1; j >= 0; j--) {
             std::cout << "\rScanlines remaining: " << j << ' ' << std::flush;
             for (int i = 0; i < IMAGE_WIDTH; i++) {
-                RayTracing::Vector3 direction(
-                    static_cast<double>(i) / (IMAGE_WIDTH - 1),
-                    static_cast<double>(j) / (IMAGE_HEIGHT - 1),
-                    0.25
-                );
-                RayTracing::Ray ray(RayTracing::Point(0, 0, 0), direction);
-                RayTracing::Color color = computeRayColor(ray);
+                double u = static_cast<double>(i) / (IMAGE_WIDTH - 1);
+                double v = static_cast<double>(j) / (IMAGE_HEIGHT - 1);
+                RayTracing::Ray ray(ORIGIN, LOWER_LEFT_CORNER + u * HORIZONTAL + v * VERTICAL - ORIGIN);
+                RayTracing::Color color = computePixelColor(ray);
                 RayTracing::writePixel(outputFile, color);
             }
         }
