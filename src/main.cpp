@@ -8,20 +8,29 @@
 
 #define OUTPUT_FILE_PATH "data/output.ppm"
 
-bool hitSphere(const RayTracing::Point& center, const double radius, const RayTracing::Ray& ray) {
+double hitSphere(const RayTracing::Point& center, const double radius, const RayTracing::Ray& ray) {
     RayTracing::Vector3 oc = ray.origin - center;
     double a = RayTracing::dot(ray.direction, ray.direction);
     double b = 2 * RayTracing::dot(ray.direction, oc);
     double c = RayTracing::dot(oc, oc) - radius * radius;
-    return b * b - 4 * a * c >= 0;
+    double discriminant = b * b - 4 * a * c;
+    if (discriminant >= 0) {
+        return (-b - std::sqrt(discriminant)) / (2.0 * a);
+    } else {
+        return -1;
+    }
 }
 
 RayTracing::Color computePixelColor(const RayTracing::Ray& ray) {
-    if (hitSphere(RayTracing::Point(0, 0, -1), 0.5, ray)) {
-        return RayTracing::Color(1, 0, 0); // Red
+    RayTracing::Point center = RayTracing::Point(0, 0, -1);
+    double t = hitSphere(center, 0.5, ray);
+    if (t >= 0) {
+        RayTracing::Point p = ray.at(t);
+        RayTracing::Vector3 unitNormal = RayTracing::unitDirection(p - center);
+        return 0.5 * RayTracing::Color(unitNormal.x + 1, unitNormal.y + 1, unitNormal.z + 1);
     }
     RayTracing::Vector3 unit = RayTracing::unitDirection(ray.direction);
-    double t = 0.5 * (unit.y + 1.0);
+    t = 0.5 * (unit.y + 1.0);
     return ((1.0 - t) * RayTracing::Color(1.0, 1.0, 1.0)) + (t * RayTracing::Color(0.5, 0.75, 1.0));
 }
 
