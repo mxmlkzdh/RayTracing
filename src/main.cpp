@@ -2,9 +2,14 @@
 #include <iostream>
 #include <fstream>
 #include "util.hpp"
+#include "ray.hpp"
 #include "color.hpp"
 
 #define OUTPUT_FILE_PATH "data/output.ppm"
+
+RayTracing::Color computeRayColor(const RayTracing::Ray& ray) {
+    return RayTracing::Color(ray.direction.x, ray.direction.y, ray.direction.z);
+}
 
 int main(int, char const**) {
 
@@ -24,11 +29,13 @@ int main(int, char const**) {
         for (int j = IMAGE_HEIGHT - 1; j >= 0; j--) {
             std::cout << "\rScanlines remaining: " << j << ' ' << std::flush;
             for (int i = 0; i < IMAGE_WIDTH; i++) {
-                RayTracing::Color color(
+                RayTracing::Vector3 direction(
                     static_cast<double>(i) / (IMAGE_WIDTH - 1),
                     static_cast<double>(j) / (IMAGE_HEIGHT - 1),
                     0.25
                 );
+                RayTracing::Ray ray(RayTracing::Point(0, 0, 0), direction);
+                RayTracing::Color color = computeRayColor(ray);
                 RayTracing::writePixel(outputFile, color);
             }
         }
