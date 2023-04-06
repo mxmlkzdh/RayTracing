@@ -7,7 +7,18 @@
 
 #define OUTPUT_FILE_PATH "data/output.ppm"
 
+bool hitSphere(const RayTracing::Point& center, const double radius, const RayTracing::Ray& ray) {
+    RayTracing::Vector3 oc = ray.origin - center;
+    double a = RayTracing::dot(ray.direction, ray.direction);
+    double b = 2 * RayTracing::dot(ray.direction, oc);
+    double c = RayTracing::dot(oc, oc) - radius * radius;
+    return b * b - 4 * a * c >= 0;
+}
+
 RayTracing::Color computePixelColor(const RayTracing::Ray& ray) {
+    if (hitSphere(RayTracing::Point(0, 0, -1), 0.5, ray)) {
+        return RayTracing::Color(1, 0, 0); // Red
+    }
     RayTracing::Vector3 unit = RayTracing::unitDirection(ray.direction);
     double t = 0.5 * (unit.y + 1.0);
     return ((1.0 - t) * RayTracing::Color(1.0, 1.0, 1.0)) + (t * RayTracing::Color(0.5, 0.75, 1.0));
