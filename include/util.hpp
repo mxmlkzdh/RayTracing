@@ -1,6 +1,7 @@
 #pragma once
 #include <chrono>
 #include <iostream>
+#include "constants.hpp"
 
 namespace RayTracing::Util {
 
@@ -20,5 +21,10 @@ public:
         std::cout << "(" << millis << " ms, " << micros << " μs, " << nanos << " ns)" << std::endl;
     }
 };
+
+// Utility Functions
+inline double degreesToRadians(const double degrees) {
+    return degrees * Constants::PI / 180.0;
+}
 
 }
