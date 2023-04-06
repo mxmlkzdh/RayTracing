@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "vector3.hpp"
+#include "ray.hpp"
 
 TEST(Vector3, lengthEasy) {
     RayTracing::Vector3 v(-3, 0, 4);
@@ -60,4 +61,12 @@ TEST(Vector3, unitVector) {
     RayTracing::Vector3 v1(-3.0, 0, 4.0);
     RayTracing::Vector3 v2(-3.0 / 5.0, 0, 4.0 / 5.0);
     EXPECT_TRUE(RayTracing::unitVector(v1) == v2);
+}
+
+TEST(Ray, at) {
+    RayTracing::Point origin(-3.0, 10, 41.0);
+    RayTracing::Vector3 direction(1.5, 5.0, 4.0);
+    RayTracing::Ray ray(origin, direction);
+    RayTracing::Point p(-5.1, 3, 35.4);
+    EXPECT_TRUE(ray.at(-1.4) == p);
 }
