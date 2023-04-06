@@ -57,10 +57,15 @@ TEST(Vector3, crossProduct) {
     EXPECT_TRUE(RayTracing::cross(v1, v2) == v3);
 }
 
-TEST(Vector3, unitVector) {
+TEST(Vector3, unitDirection) {
     RayTracing::Vector3 v1(-3.0, 0, 4.0);
     RayTracing::Vector3 v2(-3.0 / 5.0, 0, 4.0 / 5.0);
-    EXPECT_TRUE(RayTracing::unitVector(v1) == v2);
+    EXPECT_TRUE(RayTracing::unitDirection(v1) == v2);
+}
+
+TEST(Vector3, unitDirectionLength) {
+    RayTracing::Vector3 v(-3.0, 1.34, 43.876);
+    EXPECT_TRUE(RayTracing::unitDirection(v).length() == 1);
 }
 
 TEST(Ray, at) {

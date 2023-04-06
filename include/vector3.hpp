@@ -49,7 +49,7 @@ double dot(const Vector3& lhs, const Vector3& rhs) {
 Vector3 cross(const Vector3& lhs, const Vector3& rhs) {
     return Vector3(lhs.y * rhs.z - lhs.z * rhs.y, lhs.z * rhs.x - lhs.x * rhs.z, lhs.x * rhs.y - lhs.y * rhs.x);
 }
-Vector3 unitVector(const Vector3& vector) {
+Vector3 unitDirection(const Vector3& vector) {
     return vector / vector.length();
 }
 
