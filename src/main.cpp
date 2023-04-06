@@ -13,6 +13,7 @@ RayTracing::Color computeRayColor(const RayTracing::Ray& ray) {
 
 int main(int, char const**) {
 
+    // Automatically benchmarks the execution of this code block (main) in milli, micro, and nano seconds.
     RayTracing::Util::Timer timer;
 
     // Image
