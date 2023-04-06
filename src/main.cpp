@@ -38,8 +38,8 @@ int main(int argc, char const* argv[]) {
 
     // World
     RayTracing::World world;
-    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Sphere(RayTracing::Point(0, 0, -1), 0.5)));
-    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Sphere(RayTracing::Point(0, -100.5, -1), 100)));
+    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, 0, -1), 0.5));
+    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, -100.5, -1), 100));
 
     // Camera
     const double FOCAL_LENGTH = 1.0;
