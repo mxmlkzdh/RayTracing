@@ -2,17 +2,19 @@
 #include <argh/argh.h>
 #include <iostream>
 #include <fstream>
+#include <memory>
 #include "util.hpp"
 #include "ray.hpp"
 #include "color.hpp"
 #include "sphere.hpp"
+#include "world.hpp"
+#include "constants.hpp"
 
 #define OUTPUT_FILE_PATH "data/output.ppm"
 
-RayTracing::Color computeRayColor(const RayTracing::Ray& ray) {
-    RayTracing::Sphere sphere(RayTracing::Point(0, 0, -1), 0.5);
+RayTracing::Color computeRayColor(const RayTracing::Ray& ray, const RayTracing::World& world) {
     RayTracing::HitRecord record;
-    if (sphere.hit(ray, 0, 100, record)) {
+    if (world.hit(ray, 0, RayTracing::Constants::DOUBLE_INFINITY, record)) {
         return 0.5 * (record.normal + RayTracing::Color(1, 1, 1));
     }
     RayTracing::Vector3 unit = RayTracing::unitDirection(ray.direction);
@@ -33,6 +35,11 @@ int main(int argc, char const* argv[]) {
     cmdl({"-w", "--width"}, 400) >> width;
     const int IMAGE_WIDTH = width;
     const int IMAGE_HEIGHT = static_cast<int>(IMAGE_WIDTH / ASPECT_RATIO);
+
+    // World
+    RayTracing::World world;
+    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Sphere(RayTracing::Point(0, 0, -1), 0.5)));
+    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Sphere(RayTracing::Point(0, -100.5, -1), 100)));
 
     // Camera
     const double FOCAL_LENGTH = 1.0;
@@ -56,7 +63,7 @@ int main(int argc, char const* argv[]) {
                 double u = static_cast<double>(i) / (IMAGE_WIDTH - 1);
                 double v = static_cast<double>(j) / (IMAGE_HEIGHT - 1);
                 RayTracing::Ray ray(ORIGIN, LOWER_LEFT_CORNER + (u * HORIZONTAL) + (v * VERTICAL) - ORIGIN);
-                RayTracing::Color color = computeRayColor(ray);
+                RayTracing::Color color = computeRayColor(ray, world);
                 RayTracing::writePixel(outputFile, color);
             }
         }
