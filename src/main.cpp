@@ -5,32 +5,18 @@
 #include "util.hpp"
 #include "ray.hpp"
 #include "color.hpp"
+#include "sphere.hpp"
 
 #define OUTPUT_FILE_PATH "data/output.ppm"
 
-double hitSphere(const RayTracing::Point& center, const double radius, const RayTracing::Ray& ray) {
-    RayTracing::Vector3 oc = ray.origin - center;
-    double a = RayTracing::dot(ray.direction, ray.direction);
-    double b = 2 * RayTracing::dot(ray.direction, oc);
-    double c = RayTracing::dot(oc, oc) - radius * radius;
-    double discriminant = b * b - 4 * a * c;
-    if (discriminant >= 0) {
-        return (-b - std::sqrt(discriminant)) / (2.0 * a);
-    } else {
-        return -1;
-    }
-}
-
-RayTracing::Color computePixelColor(const RayTracing::Ray& ray) {
-    RayTracing::Point center = RayTracing::Point(0, 0, -1);
-    double t = hitSphere(center, 0.5, ray);
-    if (t >= 0) {
-        RayTracing::Point p = ray.at(t);
-        RayTracing::Vector3 unitNormal = RayTracing::unitDirection(p - center);
-        return 0.5 * RayTracing::Color(unitNormal.x + 1, unitNormal.y + 1, unitNormal.z + 1);
+RayTracing::Color computeRayColor(const RayTracing::Ray& ray) {
+    RayTracing::Sphere sphere(RayTracing::Point(0, 0, -1), 0.5);
+    RayTracing::HitRecord record;
+    if (sphere.hit(ray, 0, 100, record)) {
+        return 0.5 * (record.normal + RayTracing::Color(1, 1, 1));
     }
     RayTracing::Vector3 unit = RayTracing::unitDirection(ray.direction);
-    t = 0.5 * (unit.y + 1.0);
+    double t = 0.5 * (unit.y + 1.0);
     return ((1.0 - t) * RayTracing::Color(1.0, 1.0, 1.0)) + (t * RayTracing::Color(0.5, 0.75, 1.0));
 }
 
@@ -70,7 +56,7 @@ int main(int argc, char const* argv[]) {
                 double u = static_cast<double>(i) / (IMAGE_WIDTH - 1);
                 double v = static_cast<double>(j) / (IMAGE_HEIGHT - 1);
                 RayTracing::Ray ray(ORIGIN, LOWER_LEFT_CORNER + (u * HORIZONTAL) + (v * VERTICAL) - ORIGIN);
-                RayTracing::Color color = computePixelColor(ray);
+                RayTracing::Color color = computeRayColor(ray);
                 RayTracing::writePixel(outputFile, color);
             }
         }
