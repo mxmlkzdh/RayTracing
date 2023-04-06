@@ -10,6 +10,7 @@ struct HitRecord {
     Vector3 normal;
 };
 
+// The interface for a hittable object
 class Object {
 
 public:
