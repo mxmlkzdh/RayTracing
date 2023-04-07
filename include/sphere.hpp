@@ -30,7 +30,7 @@ public:
         }
         record.time = root;
         record.point = ray.at(record.time);
-        record.normal = (record.point - center) / radius;
+        record.setNormal(ray, (record.point - center) / radius);
         return true;
     };
 };
