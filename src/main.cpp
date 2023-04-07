@@ -13,16 +13,6 @@
 
 #define OUTPUT_FILE_PATH "data/output.ppm"
 
-RayTracing::Color computeRayColor(const RayTracing::Ray& ray, const RayTracing::World& world) {
-    RayTracing::HitRecord record;
-    if (world.hit(ray, 0, RayTracing::Constants::DOUBLE_INFINITY, record)) {
-        return 0.5 * (record.normal + RayTracing::Color(1, 1, 1));
-    }
-    RayTracing::Vector3 unit = RayTracing::unitDirection(ray.direction);
-    double t = 0.5 * (unit.y + 1.0);
-    return ((1.0 - t) * RayTracing::Color(1.0, 1.0, 1.0)) + (t * RayTracing::Color(0.5, 0.75, 1.0));
-}
-
 int main(int argc, char const* argv[]) {
 
     // Automatically benchmarks the execution of this code block (main) in milli seconds and seconds.
@@ -63,7 +53,7 @@ int main(int argc, char const* argv[]) {
                     double u = (static_cast<double>(i) + RayTracing::Util::random()) / (IMAGE_WIDTH - 1);
                     double v = (static_cast<double>(j) + RayTracing::Util::random()) / (IMAGE_HEIGHT - 1);
                     RayTracing::Ray ray = camera.getRay(u, v);
-                    color = color + computeRayColor(ray, world);
+                    color = color + RayTracing::computeRayColor(ray, world);
                 }
                 RayTracing::writePixel(outputFile, color, SAMPLES_PER_PIXEL);
             }
