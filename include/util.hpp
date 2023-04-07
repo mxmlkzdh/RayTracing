@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 #include <chrono>
 #include <iostream>
 #include "constants.hpp"
@@ -23,6 +24,19 @@ public:
 };
 
 // Utility Functions
+
+// Returns a random double in [0,1).
+inline double random() {
+    static std::uniform_real_distribution<double> distribution(0.0, 1.0);
+    static std::mt19937 generator;
+    return distribution(generator);
+}
+
+// Returns a random double in [min,max).
+inline double random(const double min, const double max) {
+    return min + (max - min) * random();
+}
+
 inline double degreesToRadians(const double degrees) {
     return degrees * Constants::PI / 180.0;
 }
