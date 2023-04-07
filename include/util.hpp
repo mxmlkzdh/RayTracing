@@ -18,7 +18,7 @@ public:
         std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
         long long ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
         long long s = std::chrono::duration_cast<std::chrono::seconds>(end - start).count();
-        std::cout << "(" << s << " s, " << ms << " ms)" << std::endl;
+        std::cout << "(" << s << "s, " << ms << " ms)" << std::endl;
     }
 };
 
