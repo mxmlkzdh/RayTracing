@@ -54,9 +54,9 @@ int main(int argc, char const* argv[]) {
     if (outputFile.is_open()) {
         outputFile << "P3\n" << IMAGE_WIDTH << ' ' << IMAGE_HEIGHT << '\n' << "255\n";
         std::cout << "Image Dimensions: " << IMAGE_WIDTH << " x " << IMAGE_HEIGHT << " | Samples Per Pixel: " << SAMPLES_PER_PIXEL << std::endl;
-        std::cout << "::" << std::endl;
         for (int j = IMAGE_HEIGHT - 1; j >= 0; j--) {
-            std::cout << "\rScanlines remaining: " << j << ' ' << std::flush;
+            // std::cout << "\rScanlines remaining: " << j << ' ' << std::flush;
+            std::cout << "\rProgress: " << 100 - static_cast<int>((static_cast<double>(j) / (IMAGE_HEIGHT - 1)) * 100) << "% "<< std::flush;
             for (int i = 0; i < IMAGE_WIDTH; i++) {
                 RayTracing::Color color(0, 0, 0);
                 for (int k = 0; k < SAMPLES_PER_PIXEL; k++) {
