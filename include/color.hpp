@@ -26,7 +26,7 @@ Color computeRayColor(const Ray& ray, const Object& world, const int depth) {
     }
     HitRecord record;
     if (world.hit(ray, 0.001, Constants::DOUBLE_INFINITY, record)) {
-        Vector3 randomDirection = record.point + record.normal + randomInUnitSphere();
+        Vector3 randomDirection = record.point + record.normal + randomUnitVector();
         Ray reflectionRay(record.point, randomDirection - record.point);
         return 0.5 * computeRayColor(reflectionRay, world, depth - 1);
     }
