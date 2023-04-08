@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include "object.hpp"
 #include "vector3.hpp"
 
@@ -8,8 +9,10 @@ class Sphere: public Object {
 public:
     Point center;
     double radius;
+    std::shared_ptr<Material> material;
 public:
-    Sphere(const Point& center, const double radius): center(center), radius(radius) {}
+    Sphere(const Point& center, const double radius, std::shared_ptr<Material> material): center(center), radius(radius), material(material) {
+    }
     virtual ~Sphere() {}
     virtual bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
         const Vector3 oc = ray.origin - center;
@@ -28,6 +31,7 @@ public:
                 return false;
             }
         }
+        record.material = material;
         record.time = root;
         record.point = ray.at(record.time);
         record.setNormal(ray, (record.point - center) / radius);
