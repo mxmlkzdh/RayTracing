@@ -17,10 +17,15 @@ void writePixel(std::ofstream& outputFile, const Color& color, const int samples
         << static_cast<int>(256 * Util::clamp(b, 0.0, 0.999)) << '\n';
 }
 
-Color computeRayColor(const Ray& ray, const Object& object) {
+Color computeRayColor(const Ray& ray, const Object& object, const int depth) {
+    if (depth == 0) {
+        return Color(0, 0, 0);
+    }
     HitRecord record;
     if (object.hit(ray, 0, Constants::DOUBLE_INFINITY, record)) {
-        return 0.5 * (record.normal + Color(1, 1, 1));
+        Vector3 randomDirection = record.point + record.normal + randomInUnitSphere();
+        Ray reflectionRay(record.point, randomDirection - record.point);
+        return 0.5 * computeRayColor(reflectionRay, object, depth - 1);
     }
     Vector3 unit = unitDirection(ray.direction);
     double t = 0.5 * (unit.y + 1.0);

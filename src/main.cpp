@@ -30,6 +30,7 @@ int main(int argc, char const* argv[]) {
     int samples;
     cmdl({"-s", "--samples"}, 10) >> samples;
     const int SAMPLES_PER_PIXEL = samples;
+    const int MAX_DEPTH = 50;
 
     // World
     RayTracing::World world;
@@ -46,14 +47,14 @@ int main(int argc, char const* argv[]) {
         outputFile << "P3\n" << IMAGE_WIDTH << ' ' << IMAGE_HEIGHT << '\n' << "255\n";
         std::cout << "Image Dimensions: " << IMAGE_WIDTH << " x " << IMAGE_HEIGHT << " | Samples Per Pixel: " << SAMPLES_PER_PIXEL << std::endl;
         for (int j = IMAGE_HEIGHT - 1; j >= 0; j--) {
-            std::cout << "\rProgress: " << 100 - static_cast<int>((static_cast<double>(j) / (IMAGE_HEIGHT - 1)) * 100) << "% "<< std::flush;
+            std::cout << "\rProgress: " << 100 - static_cast<int>((static_cast<double>(j) / (IMAGE_HEIGHT - 1)) * 100) << "% " << std::flush;
             for (int i = 0; i < IMAGE_WIDTH; i++) {
                 RayTracing::Color color(0, 0, 0);
                 for (int k = 0; k < SAMPLES_PER_PIXEL; k++) {
                     double u = (static_cast<double>(i) + RayTracing::Util::random()) / (IMAGE_WIDTH - 1);
                     double v = (static_cast<double>(j) + RayTracing::Util::random()) / (IMAGE_HEIGHT - 1);
                     RayTracing::Ray ray = camera.getRay(u, v);
-                    color = color + RayTracing::computeRayColor(ray, world);
+                    color = color + RayTracing::computeRayColor(ray, world, MAX_DEPTH);
                 }
                 RayTracing::writePixel(outputFile, color, SAMPLES_PER_PIXEL);
             }
