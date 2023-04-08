@@ -9,7 +9,7 @@ struct HitRecord;
 // The interface for material
 class Material {
 public:
-    virtual bool scatter(const Ray& inRay, const HitRecord& record, Color& attenuation, Ray& outRay) const = 0;
+    virtual bool scatter(const Ray& ray, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const = 0;
     virtual ~Material() {}
 };
 

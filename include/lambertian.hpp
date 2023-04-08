@@ -12,12 +12,12 @@ public:
 public:
     Lambertian(const Color& albedo): albedo(albedo) {};
     virtual ~Lambertian() {}
-    virtual bool scatter(const Ray& inRay, const HitRecord& record, Color& attenuation, Ray& outRay) const override {
+    virtual bool scatter(const Ray& ray, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const override {
         Vector3 scatterDirection = record.normal + randomUnitVector();
         if (nearZero(scatterDirection)) {
             scatterDirection = record.normal;
         }
-        outRay = Ray(record.point, scatterDirection);
+        scatteredRay = Ray(record.point, scatterDirection);
         attenuation = albedo;
         return true;
     }
