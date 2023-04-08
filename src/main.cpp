@@ -38,8 +38,8 @@ int main(int argc, char const* argv[]) {
     RayTracing::World world;
     std::shared_ptr<RayTracing::Material> materialGround = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.5, 0.5, 0.5));
     std::shared_ptr<RayTracing::Material> materialCenter = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.5, 0.0, 0.0));
-    std::shared_ptr<RayTracing::Material> materialLeft = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.5, 0.5, 0.5));
-    std::shared_ptr<RayTracing::Material> materialRight = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.75, 0.5, 0.25));
+    std::shared_ptr<RayTracing::Material> materialLeft = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.5, 0.5, 0.5), 0.25);
+    std::shared_ptr<RayTracing::Material> materialRight = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.75, 0.5, 0.25), 1.0);
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, -100.5, -1), 100, materialGround));
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, 0, -1.25), 0.5, materialCenter));
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(-1.0, 0.0, -1), 0.5, materialLeft));
