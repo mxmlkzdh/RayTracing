@@ -46,7 +46,7 @@ int main(int argc, char const* argv[]) {
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(1.25, 0.0, -1), 0.5, materialRight));
 
     // Camera
-    RayTracing::Camera camera;
+    RayTracing::Camera camera(90.0, ASPECT_RATIO);
 
     // Render
     std::ofstream outputFile;
