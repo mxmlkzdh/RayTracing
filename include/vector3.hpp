@@ -81,4 +81,9 @@ inline Vector3 randomInHemisphere(const Vector3 normal) {
     }
 }
 
+inline bool nearZero(const Vector3& vector) {
+    const double LIMIT = 1e-8;
+    return std::fabs(vector.x < LIMIT) && std::fabs(vector.y < LIMIT) && std::fabs(vector.z < LIMIT);
+}
+
 }
