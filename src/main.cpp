@@ -15,7 +15,7 @@
 
 int main(int argc, char const* argv[]) {
 
-    // Automatically benchmarks the execution of this code block (main) in milli seconds and seconds.
+    // Automatically benchmarks the execution of this code block (main) in seconds.
     RayTracing::Util::Timer timer;
 
     // Command line arguments parser
