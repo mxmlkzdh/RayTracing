@@ -69,5 +69,8 @@ inline Vector3 randomInUnitSphere() {
     }
     return Vector3();
 }
+inline Vector3 randomUnitVector() {
+    return unitDirection(randomInUnitSphere());
+}
 
 }
