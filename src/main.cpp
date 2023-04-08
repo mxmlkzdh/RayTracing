@@ -60,7 +60,6 @@ int main(int argc, char const* argv[]) {
             }
         }
     }
-    std::cout << "\nDone!" << std::endl;
     outputFile.close();
 
     return EXIT_SUCCESS;
