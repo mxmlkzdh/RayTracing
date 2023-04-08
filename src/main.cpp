@@ -10,6 +10,7 @@
 #include "world.hpp"
 #include "camera.hpp"
 #include "constants.hpp"
+#include "lambertian.hpp"
 
 #define OUTPUT_FILE_PATH "data/output.ppm"
 
@@ -34,8 +35,10 @@ int main(int argc, char const* argv[]) {
 
     // World
     RayTracing::World world;
-    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, 0, -1), 0.5));
-    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, -100.5, -1), 100));
+    std::shared_ptr<RayTracing::Material> lambertian1 = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.5, 0.5, 0.5));
+    std::shared_ptr<RayTracing::Material> lambertian2 = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.5, 0.5, 0.5));
+    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, 0, -1), 0.5, lambertian1));
+    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, -100.5, -1), 100, lambertian2));
 
     // Camera
     RayTracing::Camera camera;
