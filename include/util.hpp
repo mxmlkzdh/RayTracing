@@ -17,7 +17,13 @@ public:
     ~Timer() {
         std::chrono::high_resolution_clock::time_point end = std::chrono::high_resolution_clock::now();
         long long s = std::chrono::duration_cast<std::chrono::seconds>(end - start).count();
-        std::cout << "\nRender Time: " << s << " seconds" << std::endl;
+        if (s >= 60) {
+            long long m = s / 60;
+            s %= 60;
+            std::cout << "\nRender Time: " << m << " minutes and " << s << " seconds" << std::endl;
+        } else {
+            std::cout << "\nRender Time: " << s << " seconds" << std::endl;
+        }
     }
 };
 
