@@ -70,8 +70,6 @@ int main(int argc, char const* argv[]) {
     }
     outputFile.close();
 
-    // system("issue_notification 'data/output.ppm' 'Render completed!'");
-    system("open data/output.ppm");
     return EXIT_SUCCESS;
 
 }
