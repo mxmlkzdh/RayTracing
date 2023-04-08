@@ -2,10 +2,9 @@
 #include <memory>
 #include "ray.hpp"
 #include "vector3.hpp"
+#include "material.hpp"
 
 namespace RayTracing {
-
-class Material;
 
 struct HitRecord {
     double time;
