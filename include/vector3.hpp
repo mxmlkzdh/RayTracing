@@ -89,4 +89,8 @@ inline bool nearZero(const Vector3& vector) {
     return std::fabs(vector.x < LIMIT) && std::fabs(vector.y < LIMIT) && std::fabs(vector.z < LIMIT);
 }
 
+Vector3 reflect(const Vector3& vector, const Vector3& normal) {
+    return vector - 2 * dot(vector, normal) * normal;
+}
+
 }
