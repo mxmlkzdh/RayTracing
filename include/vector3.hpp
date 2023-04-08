@@ -1,6 +1,7 @@
 #pragma once
 #include <cmath>
 #include <iostream>
+#include "util.hpp"
 
 namespace RayTracing {
 
@@ -52,6 +53,21 @@ Vector3 cross(const Vector3& lhs, const Vector3& rhs) {
 }
 Vector3 unitDirection(const Vector3& vector) {
     return vector / vector.length();
+}
+inline Vector3 random() {
+    return Vector3(Util::random(), Util::random(), Util::random());
+}
+inline Vector3 random(const double min, const double max) {
+    return Vector3(Util::random(min, max), Util::random(min, max), Util::random(min, max));
+}
+inline Vector3 randomInUnitSphere() {
+    while (true) {
+        Vector3 rand = random(-1, 1);
+        if (rand.length() < 1) {
+            return rand;
+        }
+    }
+    return Vector3();
 }
 
 }
