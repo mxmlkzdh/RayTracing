@@ -18,6 +18,7 @@ void writePixel(std::ofstream& outputFile, const Color& color, const int samples
 }
 
 Color computeRayColor(const Ray& ray, const Object& world, const int depth) {
+    // If we've exceeded the ray bounce limit, no more light is gathered.
     if (depth == 0) {
         return Color(0, 0, 0);
     }
