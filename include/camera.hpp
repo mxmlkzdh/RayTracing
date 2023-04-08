@@ -8,29 +8,26 @@ namespace RayTracing {
 
 class Camera {
 private:
-    const double FOCAL_LENGTH = 1.0;
-    Point ORIGIN;
-    Vector3 HORIZONTAL;
-    Vector3 VERTICAL;
-    Vector3 LOWER_LEFT_CORNER;
+    Point origin;
+    Vector3 horizontal;
+    Vector3 vertical;
+    Vector3 lowerLeftCorner;
 public:
-    Camera(const Point& lookFrom, const Point& lookAt, const Vector3& vUp, const double vFoV, const double aspectRatio) { // Vertical field-of-view in degrees
-        const double THETA = Util::degreesToRadians(vFoV);
-        const double H = std::tan(THETA / 2);
-        const double VIEWPORT_HEIGHT = 2 * H;
-        const double VIEWPORT_WIDTH = VIEWPORT_HEIGHT * aspectRatio;
-
-        Vector3 w = unitDirection(lookFrom - lookAt);
-        Vector3 u = unitDirection(cross(vUp, w));
-        Vector3 v = cross(w, u);
-
-        ORIGIN = lookFrom;
-        HORIZONTAL = VIEWPORT_WIDTH * u;
-        VERTICAL = VIEWPORT_HEIGHT * v;
-        LOWER_LEFT_CORNER = ORIGIN - (HORIZONTAL / 2) - (VERTICAL / 2) - w;
+    Camera(const Point& lookFrom, const Point& lookAt, const Vector3& vUp, const double vFoV, const double aspectRatio) {
+        const double theta = Util::degreesToRadians(vFoV);
+        const double h = std::tan(theta / 2.0);
+        const double viewportHeight = 2.0 * h;
+        const double viewportWidth = viewportHeight * aspectRatio;
+        const Vector3 w = unitDirection(lookFrom - lookAt);
+        const Vector3 u = unitDirection(cross(vUp, w));
+        const Vector3 v = cross(w, u);
+        origin = lookFrom;
+        horizontal = viewportWidth * u;
+        vertical = viewportHeight * v;
+        lowerLeftCorner = origin - (horizontal / 2) - (vertical / 2) - w;
     }
     Ray getRay(const double u, const double v) const {
-        return Ray(ORIGIN, LOWER_LEFT_CORNER + (u * HORIZONTAL) + (v * VERTICAL) - ORIGIN);
+        return Ray(origin, lowerLeftCorner + (u * horizontal) + (v * vertical) - origin);
     }
 };
 
