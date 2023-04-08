@@ -72,5 +72,13 @@ inline Vector3 randomInUnitSphere() {
 inline Vector3 randomUnitVector() {
     return unitDirection(randomInUnitSphere());
 }
+inline Vector3 randomInHemisphere(const Vector3 normal) {
+    Vector3 rand = randomInUnitSphere();
+    if (dot(rand, normal) > 0.0) { // In the same hemisphere as the normal.
+        return rand;
+    } else {
+        return -rand;
+    }
+}
 
 }
