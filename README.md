@@ -13,7 +13,7 @@ cmake --build .
 - [x] Add support for positioning and orienting the camera
 - [x] Add support for Lambertian surfaces
 - [x] Add support for metals
-- [ ] Add support for dielectrics
+- [x] Add support for dielectrics
 - [ ] Memory optimizations
 - [ ] Parallel computing to speed up the rendering phase
 - [ ] GPU rendering
