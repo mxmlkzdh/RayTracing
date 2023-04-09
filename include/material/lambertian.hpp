@@ -17,7 +17,7 @@ public:
     virtual ~Lambertian() {}
     virtual bool scatter(const Ray&, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const override {
         Vector3 scatterDirection = record.normal + randomInUnitSphere(); // Replace with randomUnitVector() for true Lambertian
-        if (nearZero(scatterDirection)) {
+        if (nearZero(scatterDirection)) { // Catch degenerate scatter directions
             scatterDirection = record.normal;
         }
         scatteredRay = Ray(record.point, scatterDirection);
