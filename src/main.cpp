@@ -15,6 +15,7 @@
 #include "material/lambertian.hpp"
 #include "material/metal.hpp"
 #include "material/dielectric.hpp"
+#include "texture/checker_texture.hpp"
 
 #define DEFAULT_OUTPUT_FILE_PATH "data/output.ppm"
 
@@ -45,7 +46,8 @@ int main(int argc, char const* argv[]) {
 
     // World
     RayTracing::World world;
-    auto materialGround = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.5, 0.5, 0.5));
+    auto checkerGround = std::make_shared<RayTracing::CheckerTexture>(RayTracing::Color(0.2, 0.3, 0.1), RayTracing::Color(0.9, 0.9, 0.9));
+    auto materialGround = std::make_shared<RayTracing::Lambertian>(checkerGround);
     auto materialCenter = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.0, 0.1, 0.3));
     auto materialLeft = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.75, 0.0, 0.0));
     auto materialRight = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.75, 0.5, 0.25));
