@@ -83,6 +83,15 @@ inline Vector3 randomInHemisphere(const Vector3 normal) {
         return -rand;
     }
 }
+inline Vector3 randomInUnitDisk() {
+    while (true) {
+        Vector3 rand(Util::random(-1, 1), Util::random(-1, 1), 0);
+        if (rand.length() < 1) {
+            return rand;
+        }
+    }
+    return Vector3();
+}
 
 inline bool nearZero(const Vector3& vector) {
     const double LIMIT = 1e-8;
