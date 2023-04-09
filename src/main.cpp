@@ -58,11 +58,11 @@ int main(int argc, char const* argv[]) {
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0.25, -0.4, -0.5), 0.1, materialFrontFront));
 
     // Camera
-    const RayTracing::Point lookFrom(0, -0.05, 1);
+    const RayTracing::Point lookFrom(0, 0, 10);
     const RayTracing::Point lookAt(0, 0, -1.25);
     const RayTracing::Vector3 vUp(0, 1, 0);
-    const double vFoV = 45.0;
-    RayTracing::Camera camera(lookFrom, lookAt, vUp, vFoV, ASPECT_RATIO);
+    const double vFoV = 9.5;
+    RayTracing::Camera camera(lookFrom, lookAt, vUp, vFoV, ASPECT_RATIO, 0.1, 11.25);
 
     // Render
     std::ofstream outputFile;
