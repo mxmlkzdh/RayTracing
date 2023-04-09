@@ -11,8 +11,7 @@ public:
     double radius;
     std::shared_ptr<Material> material;
 public:
-    Sphere(const Point& center, const double radius, std::shared_ptr<Material> material): center(center), radius(radius), material(material) {
-    }
+    Sphere(const Point& center, const double radius, std::shared_ptr<Material> material): center(center), radius(radius), material(material) {}
     virtual ~Sphere() {}
     virtual bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
         const Vector3 oc = ray.origin - center;
