@@ -10,13 +10,12 @@ struct HitRecord {
     double time;
     Point point;
     Vector3 normal;
+    bool outside;
     std::shared_ptr<Material> material;
     inline void setNormal(const Ray& ray, const Vector3& outwardNormal) {
         outside = dot(ray.direction, outwardNormal) < 0;
         normal = outside ? outwardNormal : -outwardNormal;
     }
-private:
-    bool outside;
 };
 
 // The interface for a hittable object
