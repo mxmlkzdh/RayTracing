@@ -9,7 +9,7 @@ namespace RayTracing {
 struct HitRecord {
     double time;
     Point point;
-    Vector3 normal;
+    Vector3 normal; // Design Decision: The surface normal vector will always point against the incoming ray direction.
     bool outside;
     double u; // U,V surface coordinates
     double v; // U,V surface coordinates
