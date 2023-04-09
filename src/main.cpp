@@ -86,9 +86,6 @@ int main(int argc, char const* argv[]) {
     }
     outputFile.close();
 
-    // system("issue_notification 'data/output.ppm' 'Render completed!'");
-    std::string cmd = "open " + outputFilePath;
-    system(cmd.c_str());
     return EXIT_SUCCESS;
 
 }
