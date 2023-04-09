@@ -9,6 +9,7 @@
 #include "color.hpp"
 #include "camera.hpp"
 #include "constants.hpp"
+#include "engine.hpp"
 #include "geometry/sphere.hpp"
 #include "geometry/world.hpp"
 #include "material/lambertian.hpp"
