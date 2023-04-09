@@ -16,8 +16,16 @@ public:
         attenuation = Color(1.0, 1.0, 1.0);
         double refractiveIndicesRation = record.outside ? (1.0 / refractionIndex) : refractionIndex;
         Vector3 unit = unitDirection(ray.direction);
-        Vector3 refracted = refract(unit, record.normal, refractiveIndicesRation);
-        scatteredRay = Ray(record.point, refracted);
+        double cosTheta = std::fmin(dot(-unit, record.normal), 1.0);
+        double sinTheta = std::sqrt(1.0 - cosTheta * cosTheta);
+        bool cannotRefract = refractiveIndicesRation * sinTheta > 1.0;
+        Vector3 direction;
+        if (cannotRefract) {
+            direction = reflect(unit, record.normal);
+        } else {
+            direction = refract(unit, record.normal, refractiveIndicesRation);
+        }
+        scatteredRay = Ray(record.point, direction);
         return true;
     }
 };
