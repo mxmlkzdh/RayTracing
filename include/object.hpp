@@ -11,6 +11,8 @@ struct HitRecord {
     Point point;
     Vector3 normal;
     bool outside;
+    double u; // U,V surface coordinates
+    double v; // U,V surface coordinates
     std::shared_ptr<Material> material;
     inline void setNormal(const Ray& ray, const Vector3& outwardNormal) {
         outside = dot(ray.direction, outwardNormal) < 0;
