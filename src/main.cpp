@@ -37,16 +37,16 @@ int main(int argc, char const* argv[]) {
     // World
     RayTracing::World world;
     auto materialGround = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.5, 0.5, 0.5));
-    auto materialCenter = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.5, 0.0, 0.0));
+    auto materialCenter = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.0, 0.1, 0.3));
     auto materialLeft = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.5, 0.5, 0.5));
-    auto materialRight = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.75, 0.5, 0.25), 0.25);
+    auto materialRight = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.75, 0.5, 0.25), 0.20);
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, -100.5, -1), 100, materialGround));
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, 0, -1.25), 0.5, materialCenter));
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(-1.0, 0.0, -1), 0.5, materialLeft));
-    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(1.25, 0.0, -1), 0.5, materialRight));
+    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(1.05, 0.0, -1), 0.5, materialRight));
 
     // Camera
-    RayTracing::Camera camera(RayTracing::Point(0, 0, 0), RayTracing::Point(0, 0, -1), RayTracing::Vector3(0, 1, 0), 90.0, ASPECT_RATIO);
+    RayTracing::Camera camera(RayTracing::Point(0, 0.55, 1), RayTracing::Point(0, 0, -1), RayTracing::Vector3(0, 1, 0), 65.0, ASPECT_RATIO);
 
     // Render
     std::ofstream outputFile;
