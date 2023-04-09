@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <memory>
+#include <string>
 #include "util.hpp"
 #include "ray.hpp"
 #include "color.hpp"
@@ -13,7 +14,7 @@
 #include "material/lambertian.hpp"
 #include "material/metal.hpp"
 
-#define OUTPUT_FILE_PATH "data/output.ppm"
+#define DEFAULT_OUTPUT_FILE_PATH "data/output.ppm"
 
 int main(int argc, char const* argv[]) {
 
@@ -24,6 +25,8 @@ int main(int argc, char const* argv[]) {
     argh::parser cmdl = argh::parser(argc, argv);
 
     // Image
+    std::string outputFilePath;
+    cmdl({"-o", "--output"}, DEFAULT_OUTPUT_FILE_PATH) >> outputFilePath;
     const double ASPECT_RATIO = 16.0 / 9.0;
     int width;
     if (cmdl[{"-h"}]) { // For Full HD Resolution in 16/9 Aspect Ratio
@@ -54,11 +57,11 @@ int main(int argc, char const* argv[]) {
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(-0.75, -0.45, -0.5), 0.05, materialFrontFront));
 
     // Camera
-    RayTracing::Camera camera(RayTracing::Point(0, 0.55, 1), RayTracing::Point(0, 0, -1.35), RayTracing::Vector3(0, 1, 0), 65.0, ASPECT_RATIO);
+    RayTracing::Camera camera(RayTracing::Point(0.5, 1.5, 1), RayTracing::Point(0, -0.25, -1.35), RayTracing::Vector3(0, 1, 0), 55.0, ASPECT_RATIO);
 
     // Render
     std::ofstream outputFile;
-    outputFile.open(OUTPUT_FILE_PATH);
+    outputFile.open(outputFilePath);
     if (outputFile.is_open()) {
         outputFile << "P3\n" << IMAGE_WIDTH << ' ' << IMAGE_HEIGHT << '\n' << "255\n";
         std::cout << "Image Dimensions: " << IMAGE_WIDTH << " x " << IMAGE_HEIGHT << " | Samples Per Pixel: " << SAMPLES_PER_PIXEL << std::endl;
