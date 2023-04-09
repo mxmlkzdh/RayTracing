@@ -14,6 +14,7 @@ cmake --build .
 - [x] Add support for Lambertian surfaces
 - [x] Add support for metals
 - [x] Add support for dielectrics
+- [x] Add support for depth of field
 - [ ] Memory optimizations
 - [ ] Parallel computing to speed up the rendering phase
 - [ ] GPU rendering

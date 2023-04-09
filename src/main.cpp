@@ -13,6 +13,7 @@
 #include "geometry/world.hpp"
 #include "material/lambertian.hpp"
 #include "material/metal.hpp"
+#include "material/dielectric.hpp"
 
 #define DEFAULT_OUTPUT_FILE_PATH "data/output.ppm"
 
@@ -45,19 +46,23 @@ int main(int argc, char const* argv[]) {
     RayTracing::World world;
     auto materialGround = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.5, 0.5, 0.5));
     auto materialCenter = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.0, 0.1, 0.3));
-    auto materialLeft = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.5, 0.5, 0.5));
+    auto materialLeft = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.75, 0.0, 0.0));
     auto materialRight = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.75, 0.5, 0.25));
-    auto materialFront = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.75, 0.0, 0.0));
-    auto materialFrontFront = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.75, 0.5, 0.25));
+    auto materialFront = std::make_shared<RayTracing::Dielectric>(1.5);
+    auto materialFrontFront = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(10.0 / 256, 35.0 / 256, 10.0 / 256));
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, -100.5, -1), 100, materialGround));
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, 0, -1.35), 0.5, materialCenter));
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(-1.0, 0.0, -1), 0.5, materialLeft));
-    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(1.05, 0.0, -0.75), 0.5, materialRight));
-    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(-0.5, -0.38, -0.5), 0.12, materialFront));
-    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(-0.75, -0.45, -0.5), 0.05, materialFrontFront));
+    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(1.0, 0.0, -0.75), 0.5, materialRight));
+    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(-0.25, -0.25, -0.25), 0.25, materialFront));
+    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0.25, -0.4, -0.5), 0.1, materialFrontFront));
 
     // Camera
-    RayTracing::Camera camera(RayTracing::Point(0.5, 1.5, 1), RayTracing::Point(0, -0.25, -1.35), RayTracing::Vector3(0, 1, 0), 55.0, ASPECT_RATIO);
+    const RayTracing::Point lookFrom(0, -0.05, 1);
+    const RayTracing::Point lookAt(0, 0, -1.25);
+    const RayTracing::Vector3 vUp(0, 1, 0);
+    const double vFoV = 45.0;
+    RayTracing::Camera camera(lookFrom, lookAt, vUp, vFoV, ASPECT_RATIO);
 
     // Render
     std::ofstream outputFile;
@@ -81,6 +86,9 @@ int main(int argc, char const* argv[]) {
     }
     outputFile.close();
 
+    // system("issue_notification 'data/output.ppm' 'Render completed!'");
+    std::string cmd = "open " + outputFilePath;
+    system(cmd.c_str());
     return EXIT_SUCCESS;
 
 }
