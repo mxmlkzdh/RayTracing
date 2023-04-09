@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include "object.hpp"
-#include "vector3.hpp"
+#include "../object.hpp"
+#include "../vector3.hpp"
 
 namespace RayTracing {
 

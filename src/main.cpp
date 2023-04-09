@@ -6,12 +6,12 @@
 #include "util.hpp"
 #include "ray.hpp"
 #include "color.hpp"
-#include "sphere.hpp"
-#include "world.hpp"
 #include "camera.hpp"
 #include "constants.hpp"
-#include "lambertian.hpp"
-#include "metal.hpp"
+#include "geometry/sphere.hpp"
+#include "geometry/world.hpp"
+#include "material/lambertian.hpp"
+#include "material/metal.hpp"
 
 #define OUTPUT_FILE_PATH "data/output.ppm"
 
