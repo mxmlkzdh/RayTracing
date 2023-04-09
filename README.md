@@ -1,4 +1,7 @@
 # A Ray Tracing Engine
+
+See the examples directory for some cool renders using this engine!
+
 ## How to run this engine
 ```
 git clone https://github.com/mxmlkzdh/RayTracing.git
