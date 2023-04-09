@@ -14,7 +14,7 @@ public:
         color = Color(red, green, blue);
     }
     virtual ~SolidColor() {}
-    virtual Color value(const double u, const double v, const Point& point) const override {
+    virtual Color value(const double, const double, const Point&) const override {
         return color;
     }
 };
