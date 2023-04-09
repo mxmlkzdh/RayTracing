@@ -35,8 +35,16 @@ public:
         record.time = root;
         record.point = ray.at(record.time);
         record.setNormal(ray, (record.point - center) / radius);
+        getSphereUV((record.point - center) / radius, record.u, record.v);
         return true;
     };
+private:
+    static void getSphereUV(const Vector3& outwardNormal, double& u, double& v) {
+        const double theta = std::acos(-outwardNormal.y);
+        const double phi = std::atan2(-outwardNormal.z, outwardNormal.x) + Constants::PI;
+        u = phi / (2.0 * Constants::PI);
+        v = theta / Constants::PI;
+    }
 };
 
 }
