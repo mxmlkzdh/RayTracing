@@ -19,7 +19,7 @@ cmake --build .
 - [x] Add support for dielectrics
 - [x] Add support for depth of field
 - [X] Add support for solid textures
-- [] Add examples
+- [x] Add examples
 - [ ] Memory optimizations
 - [ ] Parallel computing to speed up the rendering phase
 - [ ] GPU rendering
