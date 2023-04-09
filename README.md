@@ -17,6 +17,7 @@ cmake --build .
 - [ ] Memory optimizations
 - [ ] Parallel computing to speed up the rendering phase
 - [ ] GPU rendering
+- [ ] Rewrite the entire README from scratch
 - [ ] Add support for solid textures
 - [ ] Add support for light sources
 
