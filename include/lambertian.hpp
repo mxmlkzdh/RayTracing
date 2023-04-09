@@ -13,7 +13,7 @@ public:
     Lambertian(const Color& albedo): albedo(albedo) {};
     virtual ~Lambertian() {}
     virtual bool scatter(const Ray& ray, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const override {
-        Vector3 scatterDirection = record.normal + randomInUnitSphere();
+        Vector3 scatterDirection = record.normal + randomInUnitSphere(); // Replace with randomUnitVector() for true Lambertian
         if (nearZero(scatterDirection)) {
             scatterDirection = record.normal;
         }
