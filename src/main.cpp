@@ -26,7 +26,11 @@ int main(int argc, char const* argv[]) {
     // Image
     const double ASPECT_RATIO = 16.0 / 9.0;
     int width;
-    cmdl({"-w", "--width"}, 400) >> width;
+    if (cmdl[{"-h"}]) { // For Full HD Resolution in 16/9 Aspect Ratio
+        width = 1920;
+    } else {
+        cmdl({"-w", "--width"}, 400) >> width;
+    }
     const int IMAGE_WIDTH = width;
     const int IMAGE_HEIGHT = static_cast<int>(IMAGE_WIDTH / ASPECT_RATIO);
     int samples;
@@ -39,11 +43,15 @@ int main(int argc, char const* argv[]) {
     auto materialGround = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.5, 0.5, 0.5));
     auto materialCenter = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.0, 0.1, 0.3));
     auto materialLeft = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.5, 0.5, 0.5));
-    auto materialRight = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.75, 0.5, 0.25), 0.20);
+    auto materialRight = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.75, 0.5, 0.25));
+    auto materialFront = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.75, 0.0, 0.0));
+    auto materialFrontFront = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.75, 0.5, 0.25));
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, -100.5, -1), 100, materialGround));
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, 0, -1.35), 0.5, materialCenter));
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(-1.0, 0.0, -1), 0.5, materialLeft));
-    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(1.05, 0.0, -1), 0.5, materialRight));
+    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(1.05, 0.0, -0.75), 0.5, materialRight));
+    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(-0.5, -0.38, -0.5), 0.12, materialFront));
+    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(-0.75, -0.45, -0.5), 0.05, materialFrontFront));
 
     // Camera
     RayTracing::Camera camera(RayTracing::Point(0, 0.55, 1), RayTracing::Point(0, 0, -1.35), RayTracing::Vector3(0, 1, 0), 65.0, ASPECT_RATIO);
