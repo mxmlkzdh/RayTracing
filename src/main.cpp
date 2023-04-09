@@ -31,12 +31,12 @@ int main(int argc, char const* argv[]) {
     // Image
     std::string outputFilePath;
     cmdl({"-o", "--output"}, DEFAULT_OUTPUT_FILE_PATH) >> outputFilePath;
-    const double ASPECT_RATIO = 16.0 / 9.0;
+    const double ASPECT_RATIO = 9.0 / 16.0;
     int width;
     if (cmdl[{"-h"}]) { // For Full HD Resolution in 16/9 Aspect Ratio
         width = 1920;
     } else {
-        cmdl({"-w", "--width"}, 400) >> width;
+        cmdl({"-w", "--width"}, 200) >> width;
     }
     const int IMAGE_WIDTH = width;
     const int IMAGE_HEIGHT = static_cast<int>(IMAGE_WIDTH / ASPECT_RATIO);
@@ -49,7 +49,7 @@ int main(int argc, char const* argv[]) {
     RayTracing::World world;
     auto earthTexture = std::make_shared<RayTracing::ImageTexture>("data/earthmap.jpg");
     auto earthSurface = std::make_shared<RayTracing::Lambertian>(earthTexture);
-    auto checkerGround = std::make_shared<RayTracing::CheckerTexture>(RayTracing::Color(0.1, 0.1, 0.1), RayTracing::Color(0.9, 0.9, 0.9));
+    auto checkerGround = std::make_shared<RayTracing::CheckerTexture>(RayTracing::Color(0.1, 0.1, 0.1), RayTracing::Color(0.99, 0.99, 0.99));
     auto materialGround = std::make_shared<RayTracing::Lambertian>(checkerGround);
     auto materialCenter = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.0, 0.1, 0.3));
     auto materialLeft = std::make_shared<RayTracing::Metal>(RayTracing::Color(0.75, 0.0, 0.0));
@@ -59,16 +59,16 @@ int main(int argc, char const* argv[]) {
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, -100.5, -1), 100, materialGround));
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0, 0, -1.35), 0.5, earthSurface));
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(-1.0, 0.0, -1), 0.5, materialLeft));
-    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(1.0, 0.0, -0.75), 0.5, materialRight));
+    world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0.90, -0.1, -0.75), 0.4, materialRight));
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(-0.25, -0.25, -0.25), 0.25, materialFront));
     world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0.25, -0.4, -0.5), 0.1, materialFrontFront));
 
     // Camera
-    const RayTracing::Point lookFrom(0, 0, 10);
-    const RayTracing::Point lookAt(0, 0, -1.25);
+    const RayTracing::Point lookFrom(0, 0, 3.5);
+    const RayTracing::Point lookAt(0, 0, -1.35);
     const RayTracing::Vector3 vUp(0, 1, 0);
-    const double vFoV = 9.5;
-    RayTracing::Camera camera(lookFrom, lookAt, vUp, vFoV, ASPECT_RATIO, 0.1, 11.25);
+    const double vFoV = 45;
+    RayTracing::Camera camera(lookFrom, lookAt, vUp, vFoV, ASPECT_RATIO);
 
     // Render
     std::ofstream outputFile;
