@@ -23,7 +23,7 @@ cmake --build .
 - [ ] Memory optimizations
 - [ ] Parallel computing to speed up the rendering phase
 - [ ] GPU rendering
-- [ ] Rewrite the entire README from scratch
 - [ ] Add support for light sources
+- [ ] Rewrite the entire README from scratch
 
 ![Ray Tracing 101](data/output_final.jpg)
