@@ -18,22 +18,7 @@ private:
     double lensRadius;
 public:
     Camera(const Point& lookFrom, const Point& lookAt, const Vector3& vUp,
-        const double vFoV, const double aspectRatio) {
-        lensRadius = 0.0;
-        const double theta = Util::degreesToRadians(vFoV);
-        const double h = std::tan(theta / 2.0);
-        const double viewportHeight = 2.0 * h;
-        const double viewportWidth = viewportHeight * aspectRatio;
-        w = unitDirection(lookFrom - lookAt);
-        u = unitDirection(cross(vUp, w));
-        v = cross(w, u);
-        origin = lookFrom;
-        horizontal = viewportWidth * u;
-        vertical = viewportHeight * v;
-        lowerLeftCorner = origin - (horizontal / 2) - (vertical / 2) - w;
-    }
-    Camera(const Point& lookFrom, const Point& lookAt, const Vector3& vUp,
-        const double vFoV, const double aspectRatio, const double aperture, const double focusDistance) {
+        const double vFoV, const double aspectRatio, const double aperture = 0.0, const double focusDistance = 1.0) {
         lensRadius = aperture / 2;
         const double theta = Util::degreesToRadians(vFoV);
         const double h = std::tan(theta / 2.0);
@@ -48,11 +33,8 @@ public:
         lowerLeftCorner = origin - (horizontal / 2) - (vertical / 2) - (focusDistance * w);
     }
     Ray getRay(const double s, const double t) const {
-        Vector3 offset(0, 0, 0);
-        if (lensRadius > 0.0) {
-            Vector3 rd = lensRadius * randomInUnitDisk();
-            offset = rd.x * u + rd.y * v;
-        }
+        Vector3 rd = lensRadius * randomInUnitDisk();
+        Vector3 offset = rd.x * u + rd.y * v;
         return Ray(origin + offset, lowerLeftCorner + (s * horizontal) + (t * vertical) - origin - offset);
     }
 };
