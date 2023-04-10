@@ -14,16 +14,16 @@ public:
     virtual ~Dielectric() {}
     virtual bool scatter(const Ray& ray, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const override {
         attenuation = Color(1.0, 1.0, 1.0);
-        double refractiveIndicesRation = record.outside ? (1.0 / refractionIndex) : refractionIndex;
+        double refractiveIndicesRatio = record.outside ? (1.0 / refractionIndex) : refractionIndex;
         Vector3 unit = unitDirection(ray.direction);
         double cosTheta = std::fmin(dot(-unit, record.normal), 1.0);
         double sinTheta = std::sqrt(1.0 - cosTheta * cosTheta);
-        bool cannotRefract = refractiveIndicesRation * sinTheta > 1.0;
+        bool cannotRefract = refractiveIndicesRatio * sinTheta > 1.0;
         Vector3 direction;
-        if (cannotRefract || reflectance(cosTheta, refractiveIndicesRation) > Util::random()) {
+        if (cannotRefract || reflectance(cosTheta, refractiveIndicesRatio) > Util::random()) {
             direction = reflect(unit, record.normal);
         } else {
-            direction = refract(unit, record.normal, refractiveIndicesRation);
+            direction = refract(unit, record.normal, refractiveIndicesRatio);
         }
         scatteredRay = Ray(record.point, direction);
         return true;
