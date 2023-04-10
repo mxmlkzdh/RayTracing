@@ -11,7 +11,7 @@
 namespace RayTracing {
 
 class Scene {
-private:
+public:
     World world;
 public:
     Scene() {
@@ -30,9 +30,6 @@ public:
         world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0.825, -0.1, -0.65), 0.4, materialRight));
         world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(-0.25, -0.25, -0.25), 0.25, materialFront));
         world.add(std::make_shared<RayTracing::Sphere>(RayTracing::Point(0.25, -0.4, -0.5), 0.1, materialFrontFront));
-    }
-    World getWorld() const {
-        return world;
     }
 };
 
