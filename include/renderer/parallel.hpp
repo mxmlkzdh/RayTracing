@@ -11,7 +11,7 @@
 
 namespace RayTracing {
 
-class LinearRenderer: public Renderer {
+class ParallelRenderer: public Renderer {
 public:
     virtual void render(const Image image, const Scene scene, const Camera camera, const int samplesPerPixel, const int maxDepth) const override {
         std::ofstream outputFile;
@@ -35,7 +35,7 @@ public:
         }
         outputFile.close();
     }
-    ~LinearRenderer() {}
+    ~ParallelRenderer() {}
 private:
     // Write the translated [0,255] value of each color component.
     void writePixel(std::ofstream& outputFile, const Color& color, const int samplesPerPixel) const {
