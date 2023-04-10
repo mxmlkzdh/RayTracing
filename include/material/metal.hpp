@@ -9,9 +9,9 @@ namespace RayTracing {
 class Metal: public Material {
 public:
     Color albedo;
-    double perturbation = 0;
+    double perturbation;
 public:
-    Metal(const Color& albedo): albedo(albedo) {}
+    Metal(const Color& albedo): albedo(albedo), perturbation(0.0) {}
     Metal(const Color& albedo, const double perturbation): albedo(albedo), perturbation(perturbation < 1 ? perturbation : 1) {}
     virtual ~Metal() {}
     virtual bool scatter(const Ray& ray, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const override {
