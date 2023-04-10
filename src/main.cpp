@@ -14,7 +14,7 @@ int main(int, char const**) {
     // Image
     const std::string DEFAULT_OUTPUT_FILE_PATH = "data/output.ppm";
     const double ASPECT_RATIO = 16.0 / 9.0;
-    const int IMAGE_WIDTH = 800;
+    const int IMAGE_WIDTH = 400;
     const RayTracing::Image image(DEFAULT_OUTPUT_FILE_PATH, IMAGE_WIDTH, ASPECT_RATIO);
 
     // Scene
