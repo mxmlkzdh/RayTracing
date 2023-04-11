@@ -31,7 +31,7 @@ int main(int, char const**) {
 
     // Render
     const RayTracing::Engine engine(image, scene, camera);
-    engine.render();
+    engine.render(); // Or use engine.render(RayTracing::ParallelRenderer(std::thread::hardware_concurrency()));
 
     return EXIT_SUCCESS;
 
