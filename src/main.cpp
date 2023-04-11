@@ -1,4 +1,5 @@
 #include <string>
+#include <thread>
 #include "util.hpp"
 #include "image.hpp"
 #include "scene.hpp"
@@ -29,8 +30,9 @@ int main(int, char const**) {
     const RayTracing::Camera camera(LOOK_FROM, LOOK_AT, V_UP, V_FOV, ASPECT_RATIO);
 
     // Render
-    const RayTracing::Engine engine(image, scene, camera);
-    engine.render(RayTracing::LinearRenderer());
+    const int SAMPLES_PER_PIXEL = 100;
+    const RayTracing::Engine engine(image, scene, camera, SAMPLES_PER_PIXEL);
+    engine.render(RayTracing::ParallelRenderer(std::thread::hardware_concurrency()));
 
     return EXIT_SUCCESS;
 
