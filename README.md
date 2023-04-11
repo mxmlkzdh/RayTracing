@@ -19,11 +19,14 @@ cmake --build .
 - [x] Add support for dielectrics
 - [x] Add support for depth of field
 - [X] Add support for solid textures
+- [X] Add support for image texture mapping
 - [x] Add examples
 - [x] Parallel computing to speed up the rendering phase
-- [ ] Memory optimizations
-- [ ] GPU rendering
+- [ ] Add support for motion blur
+- [ ] Add rectangles
 - [ ] Add support for light sources
+- [ ] GPU rendering
+- [ ] Memory optimizations
 - [ ] Rewrite the entire README from scratch
 
 ![Ray Tracing 101](data/output_final.jpg)
