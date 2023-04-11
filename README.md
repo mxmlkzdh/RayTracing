@@ -10,7 +10,8 @@ mkdir build
 cd build
 cmake ..
 cmake --build .
-./main
+cd ..
+./build/main
 ```
 ## The Immediate Roadmap
 - [x] Add support for positioning and orienting the camera
