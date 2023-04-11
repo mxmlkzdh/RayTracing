@@ -7,7 +7,6 @@ See the examples directory for some cool renders using this engine!
 git clone https://github.com/mxmlkzdh/RayTracing.git
 cd RayTracing
 mkdir build
-cd build
 cmake build
 cmake --build build
 ./build/main
