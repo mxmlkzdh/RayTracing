@@ -35,9 +35,7 @@ public:
         }
         outputFile.close();
     }
-    ~LinearRenderer() {}
 private:
-    // Write the translated [0,255] value of each color component.
     void writePixel(std::ofstream& outputFile, const Color& color, const int samplesPerPixel) const {
         // Divide the color by the number of samples and gamma-correct for gamma=2.0.
         const double r = std::sqrt(color.x / samplesPerPixel);
