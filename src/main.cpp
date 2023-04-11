@@ -30,9 +30,8 @@ int main(int, char const**) {
     const RayTracing::Camera camera(LOOK_FROM, LOOK_AT, V_UP, V_FOV, ASPECT_RATIO);
 
     // Render
-    const int SAMPLES_PER_PIXEL = 100;
-    const RayTracing::Engine engine(image, scene, camera, SAMPLES_PER_PIXEL);
-    engine.render(RayTracing::ParallelRenderer(std::thread::hardware_concurrency()));
+    const RayTracing::Engine engine(image, scene, camera);
+    engine.render();
 
     return EXIT_SUCCESS;
 

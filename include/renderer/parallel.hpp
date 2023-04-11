@@ -36,9 +36,11 @@ public:
         if (outputFile.is_open()) {
             outputFile << "P3\n" << image.width << ' ' << image.height << '\n' << "255\n";
             std::vector<std::ifstream> inputFiles(hardwareConcurrency);
+            std::vector<std::string> fileNames(hardwareConcurrency);
             for (std::size_t p = 0; p < hardwareConcurrency; p++) {
                 std::string localFileName = image.fileName + "_" + std::to_string(p);
                 inputFiles[p] = std::ifstream(localFileName, std::ifstream::binary);
+                fileNames[p] = localFileName;
             }
             for (int j = image.height - 1; j >= 0; j--) {
                 for (int i = 0; i < image.width; i++) {
@@ -51,8 +53,9 @@ public:
                     writePixel(outputFile, color, samplesPerPixel);
                 }
             }
-            for (auto& inputFile : inputFiles) {
-                inputFile.close();
+            for (std::size_t p = 0; p < hardwareConcurrency; p++) {
+                inputFiles[p].close();
+                std::remove(fileNames[p].c_str());
             }
         }
         outputFile.close();
