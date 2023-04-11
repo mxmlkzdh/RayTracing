@@ -1,6 +1,10 @@
 #pragma once
 #include <iostream>
+#include <thread>
+#include <vector>
 #include <fstream>
+#include <string>
+#include <atomic>
 #include "../image.hpp"
 #include "../scene.hpp"
 #include "../camera.hpp"
@@ -13,14 +17,53 @@ namespace RayTracing {
 
 class ParallelRenderer: public Renderer {
 public:
-    virtual void render(const Image image, const Scene scene, const Camera camera, const int samplesPerPixel, const int maxDepth) const override {
+    std::size_t hardwareConcurrency;
+public:
+    ParallelRenderer(const std::size_t hardwareConcurrency): hardwareConcurrency(hardwareConcurrency) {}
+    virtual void render(const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const int maxDepth) const override {
+        int estimate = samplesPerPixel / static_cast<int>(hardwareConcurrency);
+        int localSamplesPerPixel = samplesPerPixel % static_cast<int>(hardwareConcurrency) == 0 ? estimate : estimate + 1;
+        std::vector<std::thread> threads;
+        threads.reserve(hardwareConcurrency);
+        for (std::size_t p = 0; p < hardwareConcurrency; p++) {
+            threads.push_back(std::thread(renderTask, p, image, scene, camera, localSamplesPerPixel, maxDepth));
+        }
+        for (std::thread& thread : threads) {
+            thread.join();
+        }
         std::ofstream outputFile;
         outputFile.open(image.fileName);
         if (outputFile.is_open()) {
             outputFile << "P3\n" << image.width << ' ' << image.height << '\n' << "255\n";
-            std::cout << "Image Dimensions: " << image.width << " x " << image.height << " | Samples Per Pixel: " << samplesPerPixel << std::endl;
+            std::vector<std::ifstream> inputFiles(hardwareConcurrency);
+            for (std::size_t p = 0; p < hardwareConcurrency; p++) {
+                std::string localFileName = image.fileName + "_" + std::to_string(p);
+                inputFiles[p] = std::ifstream(localFileName, std::ifstream::binary);
+            }
             for (int j = image.height - 1; j >= 0; j--) {
-                std::cout << "\rProgress: " << 100 - static_cast<int>((static_cast<double>(j) / (image.height - 1)) * 100) << "% " << std::flush;
+                for (int i = 0; i < image.width; i++) {
+                    Color color(0, 0, 0);
+                    for (std::size_t p = 0; p < hardwareConcurrency; p++) {
+                        Color temp;
+                        inputFiles[p].read(reinterpret_cast<char*>(&temp), sizeof(Color));
+                        color = color + temp;
+                    }
+                    writePixel(outputFile, color, samplesPerPixel);
+                }
+            }
+            for (auto& inputFile : inputFiles) {
+                inputFile.close();
+            }
+        }
+        outputFile.close();
+    }
+    ~ParallelRenderer() {}
+private:
+    static void renderTask(const int id, const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const int maxDepth) {
+        std::string localFileName = image.fileName + "_" + std::to_string(id);
+        std::ofstream outputFile(localFileName);
+        if (outputFile.is_open()) {
+            for (int j = image.height - 1; j >= 0; j--) {
                 for (int i = 0; i < image.width; i++) {
                     Color color(0, 0, 0);
                     for (int k = 0; k < samplesPerPixel; k++) {
@@ -29,14 +72,12 @@ public:
                         Ray ray = camera.getRay(u, v);
                         color = color + computeRayColor(ray, scene.world, maxDepth);
                     }
-                    writePixel(outputFile, color, samplesPerPixel);
+                    outputFile.write(reinterpret_cast<char*>(&color), sizeof(Color));
                 }
             }
         }
         outputFile.close();
     }
-    ~ParallelRenderer() {}
-private:
     // Write the translated [0,255] value of each color component.
     void writePixel(std::ofstream& outputFile, const Color& color, const int samplesPerPixel) const {
         // Divide the color by the number of samples and gamma-correct for gamma=2.0.
@@ -48,7 +89,7 @@ private:
             << static_cast<int>(256 * Util::clamp(g, 0.0, 0.999)) << ' '
             << static_cast<int>(256 * Util::clamp(b, 0.0, 0.999)) << '\n';
     }
-    Color computeRayColor(const Ray& ray, const Object& world, const int depth) const {
+    static Color computeRayColor(const Ray& ray, const Object& world, const int depth) {
         // If we've exceeded the ray bounce limit, no more light is gathered.
         if (depth == 0) {
             return Color(0, 0, 0);
