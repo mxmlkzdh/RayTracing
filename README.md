@@ -8,9 +8,8 @@ git clone https://github.com/mxmlkzdh/RayTracing.git
 cd RayTracing
 mkdir build
 cd build
-cmake ..
-cmake --build .
-cd ..
+cmake build
+cmake --build build
 ./build/main
 ```
 ## The Immediate Roadmap
