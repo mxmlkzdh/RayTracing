@@ -20,8 +20,8 @@ cmake --build .
 - [x] Add support for depth of field
 - [X] Add support for solid textures
 - [x] Add examples
+- [x] Parallel computing to speed up the rendering phase
 - [ ] Memory optimizations
-- [ ] Parallel computing to speed up the rendering phase
 - [ ] GPU rendering
 - [ ] Add support for light sources
 - [ ] Rewrite the entire README from scratch
