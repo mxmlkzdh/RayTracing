@@ -33,9 +33,13 @@ public:
         lowerLeftCorner = origin - (horizontal / 2) - (vertical / 2) - (focusDistance * w);
     }
     Ray getRay(const double s, const double t) const {
-        Vector3 rd = lensRadius * randomInUnitDisk();
-        Vector3 offset = rd.x * u + rd.y * v;
-        return Ray(origin + offset, lowerLeftCorner + (s * horizontal) + (t * vertical) - origin - offset);
+        if (lensRadius > 0.0) {
+            Vector3 rd = lensRadius * randomInUnitDisk();
+            Vector3 offset = rd.x * u + rd.y * v;
+            return Ray(origin + offset, lowerLeftCorner + (s * horizontal) + (t * vertical) - origin - offset);
+        } else {
+            return Ray(origin, lowerLeftCorner + (s * horizontal) + (t * vertical) - origin);
+        }
     }
 };
 
