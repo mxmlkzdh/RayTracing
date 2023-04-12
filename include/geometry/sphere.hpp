@@ -38,7 +38,7 @@ public:
         return true;
     };
 private:
-    static void getSphereUV(const Vector3& outwardNormal, double& u, double& v) {
+    void getSphereUV(const Vector3& outwardNormal, double& u, double& v) const {
         const double theta = std::acos(-outwardNormal.y);
         const double phi = std::atan2(-outwardNormal.z, outwardNormal.x) + Constants::PI;
         u = phi / (2.0 * Constants::PI);
