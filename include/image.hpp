@@ -3,12 +3,10 @@
 
 namespace RayTracing {
 
-class Image {
-public:
+struct Image {
     std::string fileName;
     int width;
     int height;
-public:
     Image(const std::string& fileName, const int width, const int height):
         fileName(fileName), width(width), height(height) {
     }
