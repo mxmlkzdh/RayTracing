@@ -5,8 +5,8 @@
 #include "scene.hpp"
 #include "camera.hpp"
 #include "engine.hpp"
-#include "renderer/linear.hpp"
-#include "renderer/parallel.hpp"
+#include "render/linear.hpp"
+#include "render/parallel.hpp"
 
 int main(int, char const**) {
 
