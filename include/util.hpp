@@ -38,6 +38,7 @@ inline double random() {
 
 // Returns a random double in [min,max).
 inline double random(const double min, const double max) {
+    if (max == min) return 0;
     return min + (max - min) * random();
 }
 

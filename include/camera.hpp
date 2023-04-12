@@ -16,9 +16,12 @@ private:
     Vector3 v;
     Vector3 w;
     double lensRadius;
+    double initTime;
+    double finalTime;
 public:
     Camera(const Point& lookFrom, const Point& lookAt, const Vector3& vUp,
-        const double vFoV, const double aspectRatio, const double aperture = 0.0, const double focusDistance = 1.0) {
+        const double vFoV, const double aspectRatio, const double aperture = 0.0,
+        const double focusDistance = 1.0, const double initTime = 0.0, const double finalTime = 0.0): initTime(initTime), finalTime(finalTime) {
         lensRadius = aperture / 2;
         const double theta = Util::degreesToRadians(vFoV);
         const double h = std::tan(theta / 2.0);
@@ -36,9 +39,9 @@ public:
         if (lensRadius > 0.0) {
             Vector3 rd = lensRadius * randomInUnitDisk();
             Vector3 offset = rd.x * u + rd.y * v;
-            return Ray(origin + offset, lowerLeftCorner + (s * horizontal) + (t * vertical) - origin - offset);
+            return Ray(origin + offset, lowerLeftCorner + (s * horizontal) + (t * vertical) - origin - offset, Util::random(initTime, finalTime));
         } else {
-            return Ray(origin, lowerLeftCorner + (s * horizontal) + (t * vertical) - origin);
+            return Ray(origin, lowerLeftCorner + (s * horizontal) + (t * vertical) - origin, Util::random(initTime, finalTime));
         }
     }
 };
