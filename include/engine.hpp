@@ -3,7 +3,7 @@
 #include "scene.hpp"
 #include "image.hpp"
 #include "renderer.hpp"
-#include "renderer/linear.hpp"
+#include "render/linear.hpp"
 
 namespace RayTracing {
 
