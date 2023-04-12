@@ -23,7 +23,7 @@ cd ..
 - [X] Add support for image texture mapping
 - [x] Add examples
 - [x] Parallel computing to speed up the rendering phase
-- [ ] Add support for motion blur
+- [x] Add support for motion blur
 - [ ] Add rectangles
 - [ ] Add support for light sources
 - [ ] GPU rendering
