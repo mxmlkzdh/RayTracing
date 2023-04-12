@@ -11,7 +11,6 @@ public:
     double refractionIndex;
 public:
     Dielectric(const double refractionIndex): refractionIndex(refractionIndex) {}
-    virtual ~Dielectric() {}
     virtual bool scatter(const Ray& ray, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const override {
         attenuation = Color(1.0, 1.0, 1.0);
         double refractiveIndicesRatio = record.outside ? (1.0 / refractionIndex) : refractionIndex;
@@ -25,7 +24,7 @@ public:
         } else {
             direction = refract(unit, record.normal, refractiveIndicesRatio);
         }
-        scatteredRay = Ray(record.point, direction);
+        scatteredRay = Ray(record.point, direction, ray.time);
         return true;
     }
 private:
