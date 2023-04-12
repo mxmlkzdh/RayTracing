@@ -62,6 +62,7 @@ public:
     }
 private:
     static void renderTask(const int id, const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const int maxDepth) {
+        Color bgColor(0, 0, 0);
         std::string localFileName = image.fileName + "_" + std::to_string(id);
         std::ofstream outputFile(localFileName);
         if (outputFile.is_open()) {
@@ -72,7 +73,7 @@ private:
                         double u = (static_cast<double>(i) + Util::random()) / (image.width - 1);
                         double v = (static_cast<double>(j) + Util::random()) / (image.height - 1);
                         Ray ray = camera.getRay(u, v);
-                        color = color + computeRayColor(ray, scene.world, Color(0, 0, 0), maxDepth);
+                        color = color + computeRayColor(ray, scene.world, bgColor, maxDepth);
                     }
                     outputFile.write(reinterpret_cast<char*>(&color), sizeof(Color));
                 }
