@@ -24,8 +24,8 @@ cd ..
 - [x] Add examples
 - [x] Parallel computing to speed up the rendering phase
 - [x] Add support for motion blur
+- [x] Add support for light sources
 - [ ] Add rectangles
-- [ ] Add support for light sources
 - [ ] GPU rendering
 - [ ] Memory optimizations
 - [ ] Rewrite the entire README from scratch
