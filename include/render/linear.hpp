@@ -26,7 +26,7 @@ public:
                         double u = (static_cast<double>(i) + Util::random()) / (image.width - 1);
                         double v = (static_cast<double>(j) + Util::random()) / (image.height - 1);
                         Ray ray = camera.getRay(u, v);
-                        color = color + computeRayColor(ray, scene.world, maxDepth);
+                        color = color + computeRayColor(ray, scene.world, Color(0, 0, 0), maxDepth);
                     }
                     writePixel(outputFile, color, samplesPerPixel);
                 }
