@@ -20,7 +20,7 @@ int main(int, char const**) {
     const RayTracing::Image image(DEFAULT_OUTPUT_FILE_PATH, IMAGE_WIDTH, ASPECT_RATIO);
 
     // Scene
-    const RayTracing::Scene scene;
+    const RayTracing::Scene scene(RayTracing::Color(0, 0, 0));
 
     // Camera
     const RayTracing::Point LOOK_FROM(0, 0, 1.5);

@@ -14,7 +14,6 @@ namespace RayTracing {
 class LinearRenderer: public Renderer {
 public:
     virtual void render(const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const int maxDepth) const override {
-        Color bgColor(0, 0, 0);
         std::ofstream outputFile(image.fileName);
         if (outputFile.is_open()) {
             std::cout << "Image Dimensions: " << image.width << " x " << image.height << " | Samples Per Pixel: " << samplesPerPixel << std::endl;
@@ -27,7 +26,7 @@ public:
                         double u = (static_cast<double>(i) + Util::random()) / (image.width - 1);
                         double v = (static_cast<double>(j) + Util::random()) / (image.height - 1);
                         Ray ray = camera.getRay(u, v);
-                        color = color + computeRayColor(ray, scene.world, bgColor, maxDepth);
+                        color = color + computeRayColor(ray, scene.world, scene.backgroundColor, maxDepth);
                     }
                     writePixel(outputFile, color, samplesPerPixel);
                 }
