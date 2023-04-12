@@ -11,7 +11,6 @@ private:
     std::vector<std::shared_ptr<Object>> objects;
 public:
     World() {}
-    virtual ~World() {}
     void add(const std::shared_ptr<Object> object) {
         objects.push_back(object);
     }
