@@ -13,6 +13,12 @@ struct Vector3 {
 
     Vector3() = default;
     Vector3(const double x, const double y, const double z): x(x), y(y), z(z) {}
+    double operator[](const std::size_t i) const {
+        if (i == 0) return x;
+        else if (i == 1) return y;
+        else if (i == 2) return z;
+        else throw("Vector3 Out of Bounds.");
+    }
     double length() const {
         return std::sqrt(x * x + y * y + z * z);
     }
