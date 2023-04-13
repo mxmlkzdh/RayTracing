@@ -42,6 +42,11 @@ inline double random(const double min, const double max) {
     return min + (max - min) * random();
 }
 
+// Returns a random integer in [min,max].
+inline int random(const int min, const int max) {
+    return static_cast<int>(random(min, max + 1));
+}
+
 inline double degreesToRadians(const double degrees) {
     return degrees * Constants::PI / 180.0;
 }
