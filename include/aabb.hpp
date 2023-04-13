@@ -24,4 +24,18 @@ public:
     }
 };
 
+AABB surroundingBox(const AABB& box0, const AABB& box1) {
+    Point small(
+        std::fmin(box0.minimum.x, box1.minimum.x),
+        std::fmin(box0.minimum.y, box1.minimum.y),
+        std::fmin(box0.minimum.z, box1.minimum.z)
+    );
+    Point big(
+        std::fmax(box0.maximum.x, box1.maximum.x),
+        std::fmax(box0.maximum.y, box1.maximum.y),
+        std::fmax(box0.maximum.z, box1.maximum.z)
+    );
+    return AABB(small, big);
+}
+
 }

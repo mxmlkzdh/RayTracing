@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include "../aabb.hpp"
 #include "../object.hpp"
 #include "../vector3.hpp"
 
@@ -30,6 +31,21 @@ public:
         }
         return hitAnything;
     };
+    virtual bool boundingBox(const double initTime, const double finalTime, AABB& outputBox) const override {
+        if (objects.empty()) {
+            return false;
+        }
+        AABB tempBox;
+        bool firstBox = true;
+        for (const auto& object : objects) {
+            if (!object->boundingBox(initTime, finalTime, tempBox)) {
+                return false;
+            }
+            outputBox = firstBox ? tempBox : surroundingBox(outputBox, tempBox);
+            firstBox = false;
+        }
+        return true;
+    }
 };
 
 }

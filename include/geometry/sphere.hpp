@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "../aabb.hpp"
 #include "../object.hpp"
 #include "../vector3.hpp"
 
@@ -37,6 +38,10 @@ public:
         getSphereUV(outwardNormal, record.u, record.v);
         return true;
     };
+    virtual bool boundingBox(const double initTime, const double finalTime, AABB& outputBox) const override {
+        outputBox = AABB(center - Vector3(radius, radius, radius), center + Vector3(radius, radius, radius));
+        return true;
+    }
 private:
     void getSphereUV(const Vector3& outwardNormal, double& u, double& v) const {
         const double theta = std::acos(-outwardNormal.y);

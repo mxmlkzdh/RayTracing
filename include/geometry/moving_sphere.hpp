@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "../aabb.hpp"
 #include "../object.hpp"
 #include "../vector3.hpp"
 
@@ -42,6 +43,11 @@ public:
         getSphereUV(outwardNormal, record.u, record.v);
         return true;
     };
+    virtual bool boundingBox(const double initTime, const double finalTime, AABB& outputBox) const override {
+        const AABB box0(center(initTime) - Vector3(radius, radius, radius), center(initTime) + Vector3(radius, radius, radius));
+        const AABB box1(center(finalTime) - Vector3(radius, radius, radius), center(finalTime) + Vector3(radius, radius, radius));
+        outputBox = surroundingBox(box0, box1);
+    }
 private:
     Point center(const double time) const {
         return initCenter + ((time - initTime) / (finalTime - initTime)) * (finalCenter - initCenter);
