@@ -26,7 +26,7 @@ cd ..
 - [x] Add support for motion blur
 - [x] Add support for light sources
 - [x] Add support for Bounding Volume Hierarchies
-- [ ] Add rectangles
+- [X] Add rectangles and cubes
 - [ ] GPU rendering
 - [ ] Memory optimizations
 - [ ] Rewrite the entire README from scratch
