@@ -34,7 +34,7 @@ public:
                     const double newx = cosTheta * x + sinTheta * z;
                     const double newz = -sinTheta * x + cosTheta * z;
                     Vector3 tester(newx, y, newz);
-                    for (int c = 0; c < 3; c++) {
+                    for (std::size_t c = 0; c < 3; c++) {
                         minimum[c] = std::fmin(minimum[c], tester[c]);
                         maximum[c] = std::fmax(maximum[c], tester[c]);
                     }
