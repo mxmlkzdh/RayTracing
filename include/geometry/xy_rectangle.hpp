@@ -41,7 +41,6 @@ public:
         outputBox = AABB(Point(x0, y0, k - 0.0001), Point(x1, y1, k + 0.0001));
         return true;
     }
-
 };
 
 }
