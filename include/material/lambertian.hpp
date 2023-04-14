@@ -15,7 +15,7 @@ public:
     Lambertian(const Color& albedo): albedo(std::make_shared<SolidColor>(albedo)) {}
     Lambertian(const std::shared_ptr<Texture> albedo): albedo(albedo) {}
     virtual bool scatter(const Ray& ray, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const override {
-        Vector3 scatterDirection = record.normal + randomInUnitSphere(); // Replace with randomUnitVector() for true Lambertian
+        Vector3 scatterDirection = record.normal + randomUnitVector(); // Replace with randomInUnitSphere() for sub-Lambertian
         if (nearZero(scatterDirection)) { // Catch degenerate scatter directions
             scatterDirection = record.normal;
         }
