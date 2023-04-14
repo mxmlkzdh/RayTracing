@@ -25,8 +25,8 @@ cd ..
 - [x] Parallel computing to speed up the rendering phase
 - [x] Add support for motion blur
 - [x] Add support for light sources
+- [x] Add support for Bounding Volume Hierarchies
 - [ ] Add rectangles
-- [ ] Add support for Bounding Volume Hierarchies
 - [ ] GPU rendering
 - [ ] Memory optimizations
 - [ ] Rewrite the entire README from scratch
