@@ -13,7 +13,6 @@ public:
     SolidColor(const double red, const double green, const double blue) {
         color = Color(red, green, blue);
     }
-    virtual ~SolidColor() {}
     virtual Color value(const double, const double, const Point&) const override {
         return color;
     }
