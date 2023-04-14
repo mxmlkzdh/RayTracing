@@ -38,7 +38,7 @@ public:
         getSphereUV(outwardNormal, record.u, record.v);
         return true;
     };
-    virtual bool boundingBox(const double initTime, const double finalTime, AABB& outputBox) const override {
+    virtual bool boundingBox(const double, const double, AABB& outputBox) const override {
         outputBox = AABB(center - Vector3(radius, radius, radius), center + Vector3(radius, radius, radius));
         return true;
     }
