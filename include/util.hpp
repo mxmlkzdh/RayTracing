@@ -32,7 +32,7 @@ public:
 // Returns a random double in [0,1).
 inline double random() {
     static std::uniform_real_distribution<double> distribution(0.0, 1.0);
-    static std::mt19937 generator;
+    static std::mt19937_64 generator{ std::random_device()() };
     return distribution(generator);
 }
 
