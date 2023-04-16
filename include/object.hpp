@@ -11,7 +11,7 @@ struct HitRecord {
     double time;
     Point point;
     Vector3 normal; // Design Decision: The surface (unit) normal vector will always point against the incoming ray direction.
-    bool outside;
+    bool outside; // Determines if the ray hits the Object from the outside or inside.
     double u; // U,V surface coordinates
     double v; // U,V surface coordinates
     std::shared_ptr<Material> material;
