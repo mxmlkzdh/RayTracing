@@ -23,8 +23,8 @@ public:
                 for (int i = 0; i < image.width; i++) {
                     Color color(0, 0, 0);
                     for (int k = 0; k < samplesPerPixel; k++) {
-                        double u = (static_cast<double>(i) + Util::random()) / (image.width - 1);
-                        double v = (static_cast<double>(j) + Util::random()) / (image.height - 1);
+                        double u = (i + Util::random()) / (image.width - 1);
+                        double v = (j + Util::random()) / (image.height - 1);
                         Ray ray = camera.getRay(u, v);
                         color = color + computeRayColor(ray, scene.world, scene.backgroundColor, maxDepth);
                     }
