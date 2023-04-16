@@ -32,6 +32,7 @@ struct Vector3 {
 };
 
 // Type aliases for Vector3
+using UnitVector = Vector3;
 using Point = Vector3;
 using Color = Vector3;
 
