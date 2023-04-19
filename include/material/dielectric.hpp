@@ -11,10 +11,10 @@ public:
     double refractionIndex;
 public:
     Dielectric(const double refractionIndex): refractionIndex(refractionIndex) {}
-    virtual bool scatter(const Ray& ray, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const override {
+    virtual bool scatter(const Ray& incidentRay, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const override {
         attenuation = Color(1.0, 1.0, 1.0);
         double refractiveIndicesRatio = record.outside ? (1.0 / refractionIndex) : refractionIndex;
-        Vector3 unit = unitDirection(ray.direction);
+        Vector3 unit = unitDirection(incidentRay.direction);
         double cosTheta = std::fmin(dot(-unit, record.normal), 1.0);
         double sinTheta = std::sqrt(1.0 - cosTheta * cosTheta);
         bool cannotRefract = refractiveIndicesRatio * sinTheta > 1.0;
@@ -24,7 +24,7 @@ public:
         } else {
             direction = refract(unit, record.normal, refractiveIndicesRatio);
         }
-        scatteredRay = Ray(record.point, direction, ray.time);
+        scatteredRay = Ray(record.point, direction, incidentRay.time);
         return true;
     }
 private:

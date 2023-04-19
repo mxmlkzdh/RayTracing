@@ -13,9 +13,9 @@ public:
 public:
     Metal(const Color& albedo): albedo(albedo), perturbation(0.0) {}
     Metal(const Color& albedo, const double perturbation): albedo(albedo), perturbation(perturbation < 1 ? perturbation : 1) {}
-    virtual bool scatter(const Ray& ray, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const override {
-        Vector3 reflected = reflect(unitDirection(ray.direction), record.normal);
-        scatteredRay = Ray(record.point, reflected + perturbation * randomInUnitSphere(), ray.time);
+    virtual bool scatter(const Ray& incidentRay, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const override {
+        Vector3 reflected = reflect(unitDirection(incidentRay.direction), record.normal);
+        scatteredRay = Ray(record.point, reflected + perturbation * randomInUnitSphere(), incidentRay.time);
         attenuation = albedo;
         return dot(scatteredRay.direction, record.normal) > 0.0;
     }
