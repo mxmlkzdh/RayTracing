@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include "../vector3.hpp"
 #include "../object.hpp"
 #include "../material.hpp"
