@@ -111,7 +111,7 @@ inline bool nearZero(const Vector3& vector) {
     return std::fabs(vector.x < LIMIT) && std::fabs(vector.y < LIMIT) && std::fabs(vector.z < LIMIT);
 }
 
-Vector3 reflect(const Vector3& vector, const Vector3& normal) {
+Vector3 reflect(const Vector3& vector, const UnitVector& normal) {
     return vector - 2 * dot(vector, normal) * normal;
 }
 Vector3 refract(const Vector3& vector, const Vector3& normal, const double refractiveIndicesRation) {
