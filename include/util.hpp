@@ -44,7 +44,7 @@ inline double random(const double min, const double max) {
 
 // Returns a random integer in [min,max].
 inline int random(const int min, const int max) {
-    return static_cast<int>(random(min, max + 1));
+    return static_cast<int>(random(static_cast<double>(min), static_cast<double>(max) + 1.0));
 }
 
 inline double degreesToRadians(const double degrees) {

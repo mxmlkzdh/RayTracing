@@ -78,7 +78,7 @@ inline Vector3 random(const double min, const double max) {
 }
 inline Vector3 randomInUnitSphere() {
     while (true) {
-        Vector3 rand = random(-1, 1);
+        Vector3 rand = random(-1.0, 1.0);
         if (rand.length() < 1) {
             return rand;
         }
@@ -98,7 +98,7 @@ inline Vector3 randomInHemisphere(const Vector3 normal) {
 }
 inline Vector3 randomInUnitDisk() {
     while (true) {
-        Vector3 rand(Util::random(-1, 1), Util::random(-1, 1), 0);
+        Vector3 rand(Util::random(-1.0, 1.0), Util::random(-1.0, 1.0), 0.0);
         if (rand.length() < 1) {
             return rand;
         }
