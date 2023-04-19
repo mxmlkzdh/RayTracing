@@ -17,7 +17,7 @@ public:
         Vector3 reflected = reflect(unitDirection(incidentRay.direction), record.normal);
         scatteredRay = Ray(record.point, reflected + perturbation * randomInUnitSphere(), incidentRay.time);
         attenuation = albedo;
-        return dot(scatteredRay.direction, record.normal) > 0.0;
+        return dot(scatteredRay.direction, record.normal) >= 0.0;
     }
 };
 
