@@ -38,7 +38,7 @@ public:
         record.material = material;
         record.time = root;
         record.point = ray.at(record.time);
-        Vector3 outwardNormal = (record.point - center(ray.time)) / radius;
+        UnitVector outwardNormal = (record.point - center(ray.time)) / radius;
         record.setNormal(ray, outwardNormal);
         getSphereUV(outwardNormal, record.u, record.v);
         return true;
@@ -52,7 +52,7 @@ private:
     Point center(const double time) const {
         return initCenter + ((time - initTime) / (finalTime - initTime)) * (finalCenter - initCenter);
     }
-    void getSphereUV(const Vector3& outwardNormal, double& u, double& v) const {
+    void getSphereUV(const UnitVector& outwardNormal, double& u, double& v) const {
         const double theta = std::acos(-outwardNormal.y);
         const double phi = std::atan2(-outwardNormal.z, outwardNormal.x) + Constants::PI;
         u = phi / (2.0 * Constants::PI);
