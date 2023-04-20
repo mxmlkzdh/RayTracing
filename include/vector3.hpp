@@ -114,9 +114,9 @@ inline bool nearZero(const Vector3& vector) {
 Vector3 reflect(const Vector3& vector, const UnitVector& normal) {
     return vector - 2 * dot(vector, normal) * normal;
 }
-Vector3 refract(const Vector3& vector, const Vector3& normal, const double refractiveIndicesRation) {
+Vector3 refract(const Vector3& vector, const Vector3& normal, const double refractiveIndicesRatio) {
     double cosTheta = std::fmin(dot(-vector, normal), 1.0);
-    Vector3 perpendicularRay = refractiveIndicesRation * (vector + (cosTheta * normal));
+    Vector3 perpendicularRay = refractiveIndicesRatio * (vector + (cosTheta * normal));
     Vector3 parallelRay = -std::sqrt(std::fabs(1.0 - dot(perpendicularRay, perpendicularRay))) * normal;
     return perpendicularRay + parallelRay;
 }
