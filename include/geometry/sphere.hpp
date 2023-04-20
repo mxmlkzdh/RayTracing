@@ -33,7 +33,7 @@ public:
         record.material = material;
         record.time = root;
         record.point = ray.at(record.time);
-        Vector3 outwardNormal = (record.point - center) / radius;
+        UnitVector outwardNormal = (record.point - center) / radius;
         record.setNormal(ray, outwardNormal);
         getSphereUV(outwardNormal, record.u, record.v);
         return true;
