@@ -24,8 +24,8 @@ public:
         const double focusDistance = 1.0, const double initTime = 0.0, const double finalTime = 0.0): initTime(initTime), finalTime(finalTime) {
         lensRadius = aperture / 2;
         const double theta = Util::degreesToRadians(vFoV);
-        const double h = std::tan(theta / 2.0);
-        const double viewportHeight = 2.0 * h;
+        const double height = std::tan(theta / 2.0);
+        const double viewportHeight = 2.0 * height;
         const double viewportWidth = viewportHeight * aspectRatio;
         w = unitDirection(lookFrom - lookAt);
         u = unitDirection(cross(vUp, w));
