@@ -17,8 +17,9 @@ public:
             const double t1 = fmax((min[i] - ray.origin[i]) / ray.direction[i], (max[i] - ray.origin[i]) / ray.direction[i]);
             initTime = std::fmax(t0, initTime);
             finalTime = std::fmin(t1, finalTime);
-            if (finalTime <= initTime) {}
+            if (finalTime <= initTime) {
                 return false;
+            }
         }
         return true;
     }
