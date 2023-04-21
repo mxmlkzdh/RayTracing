@@ -1,8 +1,8 @@
 #pragma once
 #include <cmath>
+#include "solid_color.hpp"
 #include "../vector3.hpp"
 #include "../texture.hpp"
-#include "solid_color.hpp"
 
 namespace RayTracing {
 
@@ -19,7 +19,6 @@ public:
         if (sines < 0) {
             return odd->value(u, v, point);
         } else {
-
             return even->value(u, v, point);
         }
     }
