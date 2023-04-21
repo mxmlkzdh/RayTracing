@@ -12,8 +12,8 @@ struct HitRecord {
     Point point;
     UnitVector normal; // Design Decision: The surface normal will always point against the incoming ray direction.
     bool outside; // Determines if the ray hits the Object from the outside or inside.
-    double u; // U,V surface coordinates
-    double v; // U,V surface coordinates
+    double u; // U,V surface coordinates in [0, 1]
+    double v; // U,V surface coordinates in [0, 1]
     std::shared_ptr<Material> material;
     inline void setNormal(const Ray& ray, const UnitVector& outwardNormal) {
         outside = dot(ray.direction, outwardNormal) <= 0;
