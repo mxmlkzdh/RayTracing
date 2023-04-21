@@ -10,9 +10,7 @@ public:
 public:
     SolidColor() {}
     SolidColor(const Color& color): color(color) {}
-    SolidColor(const double red, const double green, const double blue) {
-        color = Color(red, green, blue);
-    }
+    SolidColor(const double red, const double green, const double blue): color(Color(red, green, blue)) {}
     virtual Color value(const double, const double, const Point&) const override {
         return color;
     }
