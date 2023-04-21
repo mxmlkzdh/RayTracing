@@ -22,7 +22,7 @@ public:
         return true;
     };
     virtual bool boundingBox(const double, const double, AABB& outputBox) const override {
-        outputBox = AABB(outputBox.minimum + displacement, outputBox.maximum + displacement);
+        outputBox = AABB(outputBox.min + displacement, outputBox.max + displacement);
         return true;
     }
 };
