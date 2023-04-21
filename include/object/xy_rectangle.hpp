@@ -34,7 +34,7 @@ public:
         record.u = (x - x0) / (x1 - x0);
         record.v = (y - y0) / (y1 - y0);
         record.material = material;
-        record.setNormal(ray, UnitVector(0, 0, 1));
+        record.setNormal(ray, Vector3(0, 0, 1));
         return true;
     };
     virtual bool boundingBox(const double, const double, AABB& outputBox) const override {
