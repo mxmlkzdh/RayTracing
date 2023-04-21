@@ -12,25 +12,25 @@ namespace RayTracing {
 
 class Cube: public Object {
 public:
-    Point minimum;
-    Point maximum;
+    Point min;
+    Point max;
     std::shared_ptr<Material> material;
 private:
     World sides;
 public:
-    Cube(const Point& minimum, const Point& maximum, const std::shared_ptr<Material> material): minimum(minimum), maximum(maximum), material(material) {
-        sides.add(std::make_shared<XYRectangle>(minimum.x, maximum.x, minimum.y, maximum.y, maximum.z, material));
-        sides.add(std::make_shared<XYRectangle>(minimum.x, maximum.x, minimum.y, maximum.y, minimum.z, material));
-        sides.add(std::make_shared<XZRectangle>(minimum.x, maximum.x, minimum.z, maximum.z, maximum.y, material));
-        sides.add(std::make_shared<XZRectangle>(minimum.x, maximum.x, minimum.z, maximum.z, minimum.y, material));
-        sides.add(std::make_shared<YZRectangle>(minimum.y, maximum.y, minimum.z, maximum.z, maximum.x, material));
-        sides.add(std::make_shared<YZRectangle>(minimum.y, maximum.y, minimum.z, maximum.z, minimum.x, material));
+    Cube(const Point& min, const Point& max, const std::shared_ptr<Material> material): min(min), max(max), material(material) {
+        sides.add(std::make_shared<XYRectangle>(min.x, max.x, min.y, max.y, max.z, material));
+        sides.add(std::make_shared<XYRectangle>(min.x, max.x, min.y, max.y, min.z, material));
+        sides.add(std::make_shared<XZRectangle>(min.x, max.x, min.z, max.z, max.y, material));
+        sides.add(std::make_shared<XZRectangle>(min.x, max.x, min.z, max.z, min.y, material));
+        sides.add(std::make_shared<YZRectangle>(min.y, max.y, min.z, max.z, max.x, material));
+        sides.add(std::make_shared<YZRectangle>(min.y, max.y, min.z, max.z, min.x, material));
     }
     virtual bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
         return sides.hit(ray, min, max, record);
     };
     virtual bool boundingBox(const double, const double, AABB& outputBox) const override {
-        outputBox = AABB(minimum, maximum);
+        outputBox = AABB(min, max);
         return true;
     }
 };
