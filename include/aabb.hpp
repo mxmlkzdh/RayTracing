@@ -6,18 +6,18 @@ namespace RayTracing {
 
 class AABB {
 public:
-    Point minimum;
-    Point maximum;
+    Point min;
+    Point max;
 public:
     AABB() {}
-    AABB(const Point& minimum, const Point& maximum): minimum(minimum), maximum(maximum) {}
+    AABB(const Point& min, const Point& max): min(min), max(max) {}
     bool hit(const Ray& ray, double initTime, double finalTime) const {
         for (std::size_t i = 0; i < 3; i++) {
-            const double t0 = fmin((minimum[i] - ray.origin[i]) / ray.direction[i], (maximum[i] - ray.origin[i]) / ray.direction[i]);
-            const double t1 = fmax((minimum[i] - ray.origin[i]) / ray.direction[i], (maximum[i] - ray.origin[i]) / ray.direction[i]);
+            const double t0 = fmin((min[i] - ray.origin[i]) / ray.direction[i], (max[i] - ray.origin[i]) / ray.direction[i]);
+            const double t1 = fmax((min[i] - ray.origin[i]) / ray.direction[i], (max[i] - ray.origin[i]) / ray.direction[i]);
             initTime = std::fmax(t0, initTime);
             finalTime = std::fmin(t1, finalTime);
-            if (finalTime <= initTime)
+            if (finalTime <= initTime) {}
                 return false;
         }
         return true;
@@ -26,14 +26,14 @@ public:
 
 AABB surroundingBox(const AABB& box0, const AABB& box1) {
     Point small(
-        std::fmin(box0.minimum.x, box1.minimum.x),
-        std::fmin(box0.minimum.y, box1.minimum.y),
-        std::fmin(box0.minimum.z, box1.minimum.z)
+        std::fmin(box0.min.x, box1.min.x),
+        std::fmin(box0.min.y, box1.min.y),
+        std::fmin(box0.min.z, box1.min.z)
     );
     Point big(
-        std::fmax(box0.maximum.x, box1.maximum.x),
-        std::fmax(box0.maximum.y, box1.maximum.y),
-        std::fmax(box0.maximum.z, box1.maximum.z)
+        std::fmax(box0.max.x, box1.max.x),
+        std::fmax(box0.max.y, box1.max.y),
+        std::fmax(box0.max.z, box1.max.z)
     );
     return AABB(small, big);
 }
