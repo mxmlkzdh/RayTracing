@@ -47,6 +47,7 @@ public:
         const AABB box0(center(initTime) - Vector3(radius, radius, radius), center(initTime) + Vector3(radius, radius, radius));
         const AABB box1(center(finalTime) - Vector3(radius, radius, radius), center(finalTime) + Vector3(radius, radius, radius));
         outputBox = surroundingBox(box0, box1);
+        return true;
     }
 private:
     Point center(const double time) const {
