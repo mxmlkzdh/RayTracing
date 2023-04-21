@@ -40,7 +40,7 @@ Color computeRayColor(const Ray& ray, const Object& world, const Color& backgrou
     if (!record.material->scatter(ray, record, attenuation, scatteredRay)) {
         return emitted;
     }
-    return emitted + (attenuation * computeRayColor(scatteredRay, world, background, depth - 1));
+    return emitted + attenuation * computeRayColor(scatteredRay, world, background, depth - 1);
 }
 
 }
