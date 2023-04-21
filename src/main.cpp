@@ -20,12 +20,12 @@ int main(int, char const**) {
     const RayTracing::Image image(DEFAULT_OUTPUT_FILE_PATH, IMAGE_WIDTH, ASPECT_RATIO);
 
     // Scene
-    const RayTracing::Scene scene(RayTracing::Color(0, 0, 0));
+    const RayTracing::Scene scene(RayTracing::Color(0.0, 0.0, 0.0));
 
     // Camera
-    const RayTracing::Point LOOK_FROM(0, 0, 1.5);
-    const RayTracing::Point LOOK_AT(0, 0, -1.35);
-    const RayTracing::Vector3 V_UP(0, 1, 0);
+    const RayTracing::Point LOOK_FROM(0.0, 0.0, 1.5);
+    const RayTracing::Point LOOK_AT(0.0, 0.0, -1.35);
+    const RayTracing::Vector3 V_UP(0.0, 1.0, 0.0);
     const double V_FOV = 45.0;
     const RayTracing::Camera camera(LOOK_FROM, LOOK_AT, V_UP, V_FOV, ASPECT_RATIO);
 
