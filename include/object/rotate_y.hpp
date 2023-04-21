@@ -46,20 +46,20 @@ public:
     virtual bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
         Vector3 origin = ray.origin;
         Vector3 direction = ray.direction;
-        origin[0] = cosTheta * ray.origin[0] - sinTheta * ray.origin[2];
-        origin[2] = sinTheta * ray.origin[0] + cosTheta * ray.origin[2];
-        direction[0] = cosTheta * ray.direction[0] - sinTheta * ray.direction[2];
-        direction[2] = sinTheta * ray.direction[0] + cosTheta * ray.direction[2];
+        origin.x = cosTheta * ray.origin.x - sinTheta * ray.origin.z;
+        origin.z = sinTheta * ray.origin.x + cosTheta * ray.origin.z;
+        direction.x = cosTheta * ray.direction.x - sinTheta * ray.direction.z;
+        direction.z = sinTheta * ray.direction.x + cosTheta * ray.direction.z;
         Ray rotatedRay(origin, direction, ray.time);
         if (!object->hit(rotatedRay, min, max, record)) {
             return false;
         }
         Point point = record.point;
         Vector3 normal = record.normal;
-        point[0] = cosTheta * record.point[0] + sinTheta * record.point[2];
-        point[2] = -sinTheta * record.point[0] + cosTheta * record.point[2];
-        normal[0] = cosTheta * record.normal[0] + sinTheta * record.normal[2];
-        normal[2] = -sinTheta * record.normal[0] + cosTheta * record.normal[2];
+        point.x = cosTheta * record.point.x + sinTheta * record.point.z;
+        point.z = -sinTheta * record.point.x + cosTheta * record.point.z;
+        normal.x = cosTheta * record.normal.x + sinTheta * record.normal.z;
+        normal.z = -sinTheta * record.normal.x + cosTheta * record.normal.z;
         record.point = point;
         record.setNormal(rotatedRay, normal);
         return true;
