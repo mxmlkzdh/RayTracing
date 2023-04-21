@@ -23,25 +23,25 @@ public:
         sinTheta = std::sin(radians);
         cosTheta = std::cos(radians);
         hasBox = object->boundingBox(0, 1, box);
-        Point minimum(Constants::DOUBLE_INFINITY, Constants::DOUBLE_INFINITY, Constants::DOUBLE_INFINITY);
-        Point maximum(-Constants::DOUBLE_INFINITY, -Constants::DOUBLE_INFINITY, -Constants::DOUBLE_INFINITY);
+        Point min(Constants::DOUBLE_INFINITY, Constants::DOUBLE_INFINITY, Constants::DOUBLE_INFINITY);
+        Point max(-Constants::DOUBLE_INFINITY, -Constants::DOUBLE_INFINITY, -Constants::DOUBLE_INFINITY);
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
                 for (int k = 0; k < 2; k++) {
-                    const double x = i * box.maximum.x + (1 - i) * box.minimum.x;
-                    const double y = j * box.maximum.y + (1 - j) * box.minimum.y;
-                    const double z = k * box.maximum.z + (1 - k) * box.minimum.z;
+                    const double x = i * box.max.x + (1 - i) * box.min.x;
+                    const double y = j * box.max.y + (1 - j) * box.min.y;
+                    const double z = k * box.max.z + (1 - k) * box.min.z;
                     const double newx = cosTheta * x + sinTheta * z;
                     const double newz = -sinTheta * x + cosTheta * z;
                     Vector3 tester(newx, y, newz);
                     for (std::size_t c = 0; c < 3; c++) {
-                        minimum[c] = std::fmin(minimum[c], tester[c]);
-                        maximum[c] = std::fmax(maximum[c], tester[c]);
+                        min[c] = std::fmin(min[c], tester[c]);
+                        max[c] = std::fmax(max[c], tester[c]);
                     }
                 }
             }
         }
-        box = AABB(minimum, maximum);
+        box = AABB(min, max);
     }
     virtual bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
         Vector3 origin = ray.origin;
