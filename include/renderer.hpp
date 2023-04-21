@@ -31,7 +31,7 @@ Color computeRayColor(const Ray& ray, const Object& world, const Color& backgrou
         return Color(0, 0, 0);
     }
     HitRecord record;
-    if (!world.hit(ray, 0.001, Constants::DOUBLE_INFINITY, record)) {
+    if (!world.hit(ray, Constants::NEAR_ZERO, Constants::DOUBLE_INFINITY, record)) {
         return background;
     }
     Ray scatteredRay;
