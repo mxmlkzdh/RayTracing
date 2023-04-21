@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
 #include "vector3.hpp"
-#include "geometry/world.hpp"
-#include "geometry/sphere.hpp"
+#include "object/world.hpp"
+#include "object/sphere.hpp"
 #include "material/lambertian.hpp"
 #include "material/metal.hpp"
 #include "material/dielectric.hpp"
