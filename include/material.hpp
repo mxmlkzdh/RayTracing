@@ -10,7 +10,7 @@ struct HitRecord;
 class Material {
 public:
     virtual bool scatter(const Ray& incidentRay, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const = 0;
-    virtual Color emit(const double u, const double v, const Point& point) const {
+    virtual Color emit(const double, const double, const Point&) const {
         return Color(0, 0, 0);
     }
     virtual ~Material() {}
