@@ -13,8 +13,9 @@
 #include "../ray.hpp"
 #include "../vector3.hpp"
 
-namespace RayTracing {
+#define BUILD_DIRECTORY "build/"
 
+namespace RayTracing {
 class ParallelRenderer: public Renderer {
 public:
     std::size_t hardwareConcurrency;
@@ -39,7 +40,7 @@ public:
             std::vector<std::ifstream> inputFiles(hardwareConcurrency);
             std::vector<std::string> fileNames(hardwareConcurrency);
             for (std::size_t p = 0; p < hardwareConcurrency; p++) {
-                std::string localFileName = image.fileName + "_" + std::to_string(p);
+                std::string localFileName = std::string(BUILD_DIRECTORY) + "raw." + std::to_string(p);
                 inputFiles[p] = std::ifstream(localFileName, std::ifstream::binary);
                 fileNames[p] = localFileName;
             }
@@ -63,7 +64,7 @@ public:
     }
 private:
     static void renderTask(const int id, const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const std::size_t hardwareConcurrency, const int maxDepth, const bool showProgress) {
-        std::string localFileName = image.fileName + "_" + std::to_string(id);
+        std::string localFileName = std::string(BUILD_DIRECTORY) + "raw." + std::to_string(id);
         std::ofstream outputFile(localFileName);
         if (outputFile.is_open()) {
             if (showProgress) {
