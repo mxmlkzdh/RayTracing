@@ -43,6 +43,7 @@ int main(int argc, char const* argv[]) {
     if (cmdl("p")) {
         int hardwareConcurrency;
         cmdl("p") >> hardwareConcurrency;
+        hardwareConcurrency = hardwareConcurrency == 0 ? std::thread::hardware_concurrency() / 2 : hardwareConcurrency;
         engine.render(RayTracing::ParallelRenderer(hardwareConcurrency));
     } else {
         engine.render();
