@@ -62,7 +62,6 @@ public:
             }
         }
         outputFile.close();
-        std::cout << "\nRendering completed!";
     }
 private:
     static void renderTask(const int id, const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const std::size_t hardwareConcurrency, const int maxDepth, const bool showProgress) {
