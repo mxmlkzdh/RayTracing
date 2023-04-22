@@ -33,6 +33,7 @@ public:
         for (std::thread& thread : threads) {
             thread.join();
         }
+        std::cout << "\nProcessing ...";
         std::ofstream outputFile;
         outputFile.open(image.fileName);
         if (outputFile.is_open()) {
@@ -61,6 +62,7 @@ public:
             }
         }
         outputFile.close();
+        std::cout << "\nRendering completed!";
     }
 private:
     static void renderTask(const int id, const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const std::size_t hardwareConcurrency, const int maxDepth, const bool showProgress) {
