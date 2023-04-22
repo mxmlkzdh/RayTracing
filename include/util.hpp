@@ -31,8 +31,8 @@ public:
 
 // Returns a random double in [0,1).
 inline double random() {
+    static thread_local std::mt19937_64 generator{ std::random_device()() };
     static std::uniform_real_distribution<double> distribution(0.0, 1.0);
-    static std::mt19937_64 generator{ std::random_device()() };
     return distribution(generator);
 }
 
