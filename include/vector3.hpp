@@ -108,7 +108,7 @@ inline Vector3 randomInUnitDisk() {
 
 inline bool nearZero(const Vector3& vector) {
     const double LIMIT = 1e-8;
-    return std::fabs(vector.x < LIMIT) && std::fabs(vector.y < LIMIT) && std::fabs(vector.z < LIMIT);
+    return (std::fabs(vector.x) < LIMIT) && (std::fabs(vector.y) < LIMIT) && (std::fabs(vector.z) < LIMIT);
 }
 
 Vector3 reflect(const Vector3& vector, const UnitVector& normal) {
