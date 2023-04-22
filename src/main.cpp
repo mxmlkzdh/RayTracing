@@ -18,11 +18,12 @@ int main(int argc, char const* argv[]) {
     auto cmdl = argh::parser(argc, argv);
 
     // Image
-    const std::string DEFAULT_OUTPUT_FILE_PATH = "data/output.ppm";
     const double ASPECT_RATIO = 16.0 / 9.0;
-    int imageWidth;
-    cmdl("w", 400) >> imageWidth;
-    const RayTracing::Image image(DEFAULT_OUTPUT_FILE_PATH, imageWidth, ASPECT_RATIO);
+    std::string fileName;
+    cmdl("o", "data/output.ppm") >> fileName;
+    int width;
+    cmdl("w", 400) >> width;
+    const RayTracing::Image image(fileName, width, ASPECT_RATIO);
 
     // Scene
     const RayTracing::Scene scene(RayTracing::Color(0.0, 0.0, 0.0));
@@ -41,7 +42,7 @@ int main(int argc, char const* argv[]) {
 
     // Render
     if (cmdl("p")) {
-        int hardwareConcurrency;
+        std::size_t hardwareConcurrency;
         cmdl("p") >> hardwareConcurrency;
         hardwareConcurrency = hardwareConcurrency == 0 ? std::thread::hardware_concurrency() / 2 : hardwareConcurrency;
         engine.render(RayTracing::ParallelRenderer(hardwareConcurrency));
