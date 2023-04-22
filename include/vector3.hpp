@@ -77,13 +77,9 @@ inline Vector3 random(const double min, const double max) {
     return Vector3(Util::random(min, max), Util::random(min, max), Util::random(min, max));
 }
 inline Vector3 randomInUnitSphere() {
-    while (true) {
-        Vector3 rand = random(-1.0, 1.0);
-        if (rand.length() < 1) {
-            return rand;
-        }
-    }
-    return Vector3();
+    const double theta = 2.0 * Constants::PI * Util::random();
+    const double phi = std::acos(1 - 2 * Util::random());
+    return Vector3(std::sin(phi) * std::cos(theta), std::sin(phi) * std::sin(theta), std::cos(phi));
 }
 inline UnitVector randomUnitVector() {
     return unitDirection(randomInUnitSphere());
