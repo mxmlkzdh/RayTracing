@@ -25,9 +25,10 @@ public:
         int localSamplesPerPixel = samplesPerPixel % static_cast<int>(hardwareConcurrency) == 0 ? estimate : estimate + 1;
         std::vector<std::thread> threads;
         threads.reserve(hardwareConcurrency);
-        for (std::size_t p = 0; p < hardwareConcurrency; p++) {
-            threads.push_back(std::thread(renderTask, p, image, scene, camera, localSamplesPerPixel, maxDepth));
+        for (std::size_t p = 0; p < hardwareConcurrency - 1; p++) {
+            threads.push_back(std::thread(renderTask, p, image, scene, camera, localSamplesPerPixel, maxDepth, false));
         }
+        renderTask(hardwareConcurrency - 1, image, scene, camera, localSamplesPerPixel, maxDepth, true); // Run one instance on the main thread to show progress!
         for (std::thread& thread : threads) {
             thread.join();
         }
@@ -61,11 +62,17 @@ public:
         outputFile.close();
     }
 private:
-    static void renderTask(const int id, const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const int maxDepth) {
+    static void renderTask(const int id, const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const int maxDepth, const bool showProgress = false) {
         std::string localFileName = image.fileName + "_" + std::to_string(id);
         std::ofstream outputFile(localFileName);
         if (outputFile.is_open()) {
+            if (showProgress) {
+                std::cout << "Image Dimensions: " << image.width << " x " << image.height << " | Samples Per Pixel: " << samplesPerPixel << std::endl;
+            }
             for (int j = image.height - 1; j >= 0; j--) {
+                if (showProgress) {
+                    std::cout << "\rProgress: " << 100 - static_cast<int>((static_cast<double>(j) / (image.height - 1)) * 100) << "% " << std::flush;
+                }
                 for (int i = 0; i < image.width; i++) {
                     Color color(0, 0, 0);
                     for (int k = 0; k < samplesPerPixel; k++) {
