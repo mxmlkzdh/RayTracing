@@ -1,3 +1,4 @@
+#include <argh/argh.h>
 #include <string>
 #include <thread>
 #include "util.hpp"
@@ -8,16 +9,20 @@
 #include "render/linear.hpp"
 #include "render/parallel.hpp"
 
-int main(int, char const**) {
+int main(int argc, char const* argv[]) {
 
     // Automatically benchmarks the execution of this code block (main) in seconds.
     RayTracing::Util::Timer timer;
 
+    // Command Line Processing
+    auto cmdl = argh::parser(argc, argv);
+
     // Image
     const std::string DEFAULT_OUTPUT_FILE_PATH = "data/output.ppm";
     const double ASPECT_RATIO = 16.0 / 9.0;
-    const int IMAGE_WIDTH = 400;
-    const RayTracing::Image image(DEFAULT_OUTPUT_FILE_PATH, IMAGE_WIDTH, ASPECT_RATIO);
+    int imageWidth;
+    cmdl("w", 400) >> imageWidth;
+    const RayTracing::Image image(DEFAULT_OUTPUT_FILE_PATH, imageWidth, ASPECT_RATIO);
 
     // Scene
     const RayTracing::Scene scene(RayTracing::Color(0.0, 0.0, 0.0));
@@ -29,9 +34,19 @@ int main(int, char const**) {
     const double V_FOV = 45.0;
     const RayTracing::Camera camera(LOOK_FROM, LOOK_AT, V_UP, V_FOV, ASPECT_RATIO);
 
+    // Engine
+    int samplesPerPixel;
+    cmdl("s", 10) >> samplesPerPixel;
+    const RayTracing::Engine engine(image, scene, camera, samplesPerPixel);
+
     // Render
-    const RayTracing::Engine engine(image, scene, camera);
-    engine.render(); // Or use engine.render(RayTracing::ParallelRenderer(std::thread::hardware_concurrency()));
+    if (cmdl("p")) {
+        int hardwareConcurrency;
+        cmdl("p") >> hardwareConcurrency;
+        engine.render(RayTracing::ParallelRenderer(hardwareConcurrency));
+    } else {
+        engine.render();
+    }
 
     return EXIT_SUCCESS;
 
