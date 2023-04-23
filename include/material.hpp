@@ -13,7 +13,7 @@ public:
     virtual Color emit(const double, const double, const Point&) const {
         return Color(0, 0, 0);
     }
-    virtual ~Material() {}
+    virtual ~Material() = default;
 };
 
 }

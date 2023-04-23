@@ -26,7 +26,7 @@ class Object {
 public:
     virtual bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const = 0;
     virtual bool boundingBox(const double initTime, const double finalTime, AABB& outputBox) const = 0;
-    virtual ~Object() {}
+    virtual ~Object() = default;
 };
 
 }

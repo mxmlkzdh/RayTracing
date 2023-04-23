@@ -7,7 +7,7 @@ namespace RayTracing {
 class Texture {
 public:
     virtual Color value(const double u, const double v, const Point& point) const = 0;
-    virtual ~Texture() {}
+    virtual ~Texture() = default;
 };
 
 }
