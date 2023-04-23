@@ -21,8 +21,7 @@ private:
 public:
     Camera(const Point& lookFrom, const Point& lookAt, const Vector3& vUp,
         const double vFoV, const double aspectRatio, const double aperture = 0.0,
-        const double focusDistance = 1.0, const double openTime = 0.0, const double closeTime = 0.0): openTime(openTime), closeTime(closeTime) {
-        lensRadius = aperture / 2;
+        const double focusDistance = 1.0, const double openTime = 0.0, const double closeTime = 0.0): origin(lookFrom), lensRadius(aperture / 2.0), openTime(openTime), closeTime(closeTime) {
         const double theta = Util::degreesToRadians(vFoV);
         const double height = std::tan(theta / 2.0);
         const double viewportHeight = 2.0 * height;
@@ -30,7 +29,6 @@ public:
         w = unitDirection(lookFrom - lookAt);
         u = unitDirection(cross(vUp, w));
         v = cross(w, u);
-        origin = lookFrom;
         horizontal = focusDistance * viewportWidth * u;
         vertical = focusDistance * viewportHeight * v;
         lowerLeftCorner = origin - (horizontal / 2) - (vertical / 2) - (focusDistance * w);
