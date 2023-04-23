@@ -10,7 +10,7 @@ namespace RayTracing {
 class Renderer {
 public:
     virtual void render(const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const int maxDepth) const = 0;
-    virtual ~Renderer() {}
+    virtual ~Renderer() = default;
 };
 
 // Write the translated [0,255] value of each color component.
