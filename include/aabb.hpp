@@ -9,7 +9,7 @@ public:
     Point min;
     Point max;
 public:
-    AABB() {}
+    AABB() = default;
     AABB(const Point& min, const Point& max): min(min), max(max) {}
     bool hit(const Ray& ray, double initTime, double finalTime) const {
         for (std::size_t i = 0; i < 3; i++) {
