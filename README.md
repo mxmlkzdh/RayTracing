@@ -27,7 +27,6 @@ cd ..
 - [x] Add support for light sources
 - [x] Add support for Bounding Volume Hierarchies
 - [X] Add rectangles and cubes
-- [ ] Add Monte Carlo rendering pipeline
 - [ ] GPU rendering
 - [ ] Memory optimizations
 - [ ] Rewrite the entire README from scratch
