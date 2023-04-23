@@ -9,7 +9,7 @@ public:
     Vector3 direction;
     double time;
 public:
-    Ray() {}
+    Ray() = default;
     Ray(const Point& origin, const Vector3& direction, const double time = 0.0): origin(origin), direction(direction), time(time) {}
     Point at(const double t) const {
         return origin + (t * direction);
