@@ -13,10 +13,10 @@ public:
 public:
     DiffuseLight(const Color& color): emitTexture(std::make_shared<SolidColor>(color)) {}
     DiffuseLight(const std::shared_ptr<Texture> emitTexture): emitTexture(emitTexture) {}
-    virtual bool scatter(const Ray&, const HitRecord&, Color&, Ray&) const override {
+    bool scatter(const Ray&, const HitRecord&, Color&, Ray&) const override {
         return false;
     }
-    virtual Color emit(const double u, const double v, const Point& point) const override {
+    Color emit(const double u, const double v, const Point& point) const override {
         return emitTexture->value(u, v, point);
     }
 };
