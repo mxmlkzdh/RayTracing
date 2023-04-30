@@ -37,7 +37,7 @@ public:
         std::ofstream outputFile;
         outputFile.open(image.fileName);
         if (outputFile.is_open()) {
-            outputFile << "P3\n" << image.width << ' ' << image.height << '\n' << "255\n";
+            outputFile << "P3\n" << image.width << ' ' << image.height << "\n255\n";
             std::vector<std::ifstream> inputFiles(hardwareConcurrency);
             std::vector<std::string> fileNames(hardwareConcurrency);
             for (std::size_t p = 0; p < hardwareConcurrency; p++) {
