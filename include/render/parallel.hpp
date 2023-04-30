@@ -21,7 +21,7 @@ public:
     std::size_t hardwareConcurrency;
 public:
     ParallelRenderer(const std::size_t hardwareConcurrency): hardwareConcurrency(hardwareConcurrency) {}
-    virtual void render(const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const int maxDepth) const override {
+    void render(const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const int maxDepth) const override {
         int estimate = samplesPerPixel / static_cast<int>(hardwareConcurrency);
         int localSamplesPerPixel = samplesPerPixel % static_cast<int>(hardwareConcurrency) == 0 ? estimate : estimate + 1;
         std::vector<std::thread> threads;

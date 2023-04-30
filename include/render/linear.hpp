@@ -13,7 +13,7 @@ namespace RayTracing {
 
 class LinearRenderer: public Renderer {
 public:
-    virtual void render(const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const int maxDepth) const override {
+    void render(const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const int maxDepth) const override {
         std::ofstream outputFile(image.fileName);
         if (outputFile.is_open()) {
             std::cout << "Image Dimensions: " << image.width << " x " << image.height << " | Samples Per Pixel: " << samplesPerPixel << std::endl;
