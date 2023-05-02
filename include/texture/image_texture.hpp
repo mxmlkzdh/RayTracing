@@ -26,10 +26,10 @@ public:
         }
         bytesPerScanline = BYTES_PER_PIXEL * width;
     }
-    virtual ~ImageTexture() {
+    ~ImageTexture() {
         delete data;
     }
-    virtual Color value(double u, double v, const Point&) const override {
+    Color value(double u, double v, const Point&) const override {
         // If we have no texture data, then return solid cyan as a debugging aid.
         if (data == nullptr) {
             return Color(0, 1, 1);
