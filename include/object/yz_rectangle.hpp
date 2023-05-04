@@ -19,7 +19,7 @@ public:
     YZRectangle(const double y0, const double y1, const double z0, const double z1, const double x, const std::shared_ptr<Material> material)
         : y0(y0), y1(y1), z0(z0), z1(z1), x(x), material(material) {
     }
-    virtual bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
+    bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
         const double t = (x - ray.origin.x) / ray.direction.x;
         if (t < min || t > max) {
             return false;
@@ -37,7 +37,7 @@ public:
         record.setNormal(ray, Vector3(1, 0, 0));
         return true;
     };
-    virtual bool boundingBox(const double, const double, AABB& outputBox) const override {
+    bool boundingBox(const double, const double, AABB& outputBox) const override {
         // The bounding box must have non-zero width in each dimension, so pad the X dimension a small amount.
         outputBox = AABB(Point(x - Constants::AABB_PADDING, y0, z0), Point(x + Constants::AABB_PADDING, y1, z1));
         return true;
