@@ -18,7 +18,7 @@ public:
     void clear() {
         objects.clear();
     }
-    virtual bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
+    bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
         bool hitAnything = false;
         double maxSoFar = max;
         HitRecord tempRecord;
@@ -31,7 +31,7 @@ public:
         }
         return hitAnything;
     };
-    virtual bool boundingBox(const double initTime, const double finalTime, AABB& outputBox) const override {
+    bool boundingBox(const double initTime, const double finalTime, AABB& outputBox) const override {
         if (objects.empty()) {
             return false;
         }
