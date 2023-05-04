@@ -35,8 +35,8 @@ public:
     }
     Ray getRay(const double s, const double t) const {
         if (lensRadius > 0.0) {
-            Vector3 rd = lensRadius * randomInUnitDisk();
-            Vector3 offset = rd.x * u + rd.y * v;
+            Vector3 random = lensRadius * randomInUnitDisk();
+            Vector3 offset = random.x * u + random.y * v;
             return Ray(origin + offset, lowerLeftCorner + (s * horizontal) + (t * vertical) - origin - offset, Util::random(openTime, closeTime));
         } else {
             return Ray(origin, lowerLeftCorner + (s * horizontal) + (t * vertical) - origin, Util::random(openTime, closeTime));
