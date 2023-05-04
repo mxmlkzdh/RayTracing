@@ -26,10 +26,10 @@ public:
         sides.add(std::make_shared<YZRectangle>(min.y, max.y, min.z, max.z, max.x, material));
         sides.add(std::make_shared<YZRectangle>(min.y, max.y, min.z, max.z, min.x, material));
     }
-    virtual bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
+    bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
         return sides.hit(ray, min, max, record);
     };
-    virtual bool boundingBox(const double, const double, AABB& outputBox) const override {
+    bool boundingBox(const double, const double, AABB& outputBox) const override {
         outputBox = AABB(min, max);
         return true;
     }
