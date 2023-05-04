@@ -3,7 +3,7 @@
 
 namespace RayTracing {
 
-// The interface for texture
+// The interface for any texture
 class Texture {
 public:
     virtual Color value(const double u, const double v, const Point& point) const = 0;
