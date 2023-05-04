@@ -43,7 +43,7 @@ public:
         }
         box = AABB(min, max);
     }
-    virtual bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
+    bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
         Vector3 origin = ray.origin;
         Vector3 direction = ray.direction;
         origin.x = cosTheta * ray.origin.x - sinTheta * ray.origin.z;
@@ -64,7 +64,7 @@ public:
         record.setNormal(rotatedRay, normal);
         return true;
     };
-    virtual bool boundingBox(const double, const double, AABB& outputBox) const override {
+    bool boundingBox(const double, const double, AABB& outputBox) const override {
         outputBox = box;
         return hasBox;
     }
