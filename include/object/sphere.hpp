@@ -13,7 +13,7 @@ public:
     std::shared_ptr<Material> material;
 public:
     Sphere(const Point& center, const double radius, std::shared_ptr<Material> material): center(center), radius(radius), material(material) {}
-    virtual bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
+    bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
         const Vector3 oc = ray.origin - center;
         const double a = RayTracing::dot(ray.direction, ray.direction);
         const double b = 2 * RayTracing::dot(ray.direction, oc);
@@ -38,7 +38,7 @@ public:
         getSphereUV(outwardNormal, record.u, record.v);
         return true;
     };
-    virtual bool boundingBox(const double, const double, AABB& outputBox) const override {
+    bool boundingBox(const double, const double, AABB& outputBox) const override {
         outputBox = AABB(center - Vector3(radius, radius, radius), center + Vector3(radius, radius, radius));
         return true;
     }
