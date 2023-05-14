@@ -12,7 +12,7 @@ struct Vector3 {
     double z;
 
     Vector3() = default;
-    Vector3(const double x, const double y, const double z): x(x), y(y), z(z) {}
+    Vector3(const double x, const double y, const double z) : x(x), y(y), z(z) {}
     double& operator[](const std::size_t i) {
         if (i == 0) return x;
         else if (i == 1) return y;

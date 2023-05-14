@@ -17,7 +17,7 @@ public:
     World world;
     Color backgroundColor;
 public:
-    Scene(const Color& backgroundColor): backgroundColor(backgroundColor) {
+    Scene(const Color& backgroundColor) : backgroundColor(backgroundColor) {
         auto earthTexture = std::make_shared<RayTracing::ImageTexture>("data/earthmap.jpg");
         auto earthSurface = std::make_shared<RayTracing::Lambertian>(earthTexture);
         auto checkerGround = std::make_shared<RayTracing::CheckerTexture>(RayTracing::Color(0.01, 0.01, 0.01), RayTracing::Color(0.99, 0.99, 0.99));

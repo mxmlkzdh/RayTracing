@@ -10,7 +10,7 @@ public:
     Point max;
 public:
     AABB() = default;
-    AABB(const Point& min, const Point& max): min(min), max(max) {}
+    AABB(const Point& min, const Point& max) : min(min), max(max) {}
     bool hit(const Ray& ray, double initTime, double finalTime) const {
         for (std::size_t i = 0; i < 3; i++) {
             const double t0 = fmin((min[i] - ray.origin[i]) / ray.direction[i], (max[i] - ray.origin[i]) / ray.direction[i]);
