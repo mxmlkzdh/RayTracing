@@ -20,7 +20,8 @@ public:
         return hitLeft || hitRight;
     }
     bool boundingBox(const double initTime, const double finalTime, AABB& outputBox) const override {
-        return false;
+        outputBox = box;
+        return true;
     }
 };
 
