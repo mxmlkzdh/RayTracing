@@ -6,7 +6,7 @@
 
 namespace RayTracing {
 
-class MovingSphere: public Object {
+class MovingSphere : public Object {
 public:
     Point initCenter;
     Point finalCenter;

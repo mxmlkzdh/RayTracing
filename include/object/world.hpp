@@ -7,7 +7,7 @@
 
 namespace RayTracing {
 
-class World: public Object {
+class World : public Object {
 public:
     std::vector<std::shared_ptr<Object>> objects;
 public:

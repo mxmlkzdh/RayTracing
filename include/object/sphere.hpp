@@ -6,13 +6,13 @@
 
 namespace RayTracing {
 
-class Sphere: public Object {
+class Sphere : public Object {
 public:
     Point center;
     double radius;
     std::shared_ptr<Material> material;
 public:
-    Sphere(const Point& center, const double radius, std::shared_ptr<Material> material): center(center), radius(radius), material(material) {}
+    Sphere(const Point& center, const double radius, std::shared_ptr<Material> material) : center(center), radius(radius), material(material) {}
     bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
         const Vector3 oc = ray.origin - center;
         const double a = RayTracing::dot(ray.direction, ray.direction);

@@ -8,7 +8,7 @@
 
 namespace RayTracing {
 
-class RotateY: public Object {
+class RotateY : public Object {
 public:
     std::shared_ptr<Object> object;
     double angle;
@@ -18,7 +18,7 @@ private:
     bool hasBox;
     AABB box;
 public:
-    RotateY(const std::shared_ptr<Object> object, const double angle): object(object), angle(angle) {
+    RotateY(const std::shared_ptr<Object> object, const double angle) : object(object), angle(angle) {
         const double radians = Util::degreesToRadians(angle);
         sinTheta = std::sin(radians);
         cosTheta = std::cos(radians);

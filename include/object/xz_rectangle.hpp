@@ -7,7 +7,7 @@
 
 namespace RayTracing {
 
-class XZRectangle: public Object {
+class XZRectangle : public Object {
 public:
     double x0;
     double x1;

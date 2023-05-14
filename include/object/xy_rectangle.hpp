@@ -7,7 +7,7 @@
 
 namespace RayTracing {
 
-class XYRectangle: public Object {
+class XYRectangle : public Object {
 public:
     double x0;
     double x1;
