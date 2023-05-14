@@ -12,7 +12,12 @@ public:
     AABB box;
 public:
     bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
-        return false;
+        if (!box.hit(ray, min, max)) {
+            return false;
+        }
+        bool hitLeft = left->hit(ray, min, max, record);
+        bool hitRight = right->hit(ray, min, hitLeft ? record.time : max, record);
+        return hitLeft || hitRight;
     }
     bool boundingBox(const double initTime, const double finalTime, AABB& outputBox) const override {
         return false;
