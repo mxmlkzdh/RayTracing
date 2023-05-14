@@ -16,11 +16,11 @@
 #define BUILD_DIRECTORY "build/"
 
 namespace RayTracing {
-class ParallelRenderer: public Renderer {
+class ParallelRenderer : public Renderer {
 public:
     std::size_t hardwareConcurrency;
 public:
-    ParallelRenderer(const std::size_t hardwareConcurrency): hardwareConcurrency(hardwareConcurrency) {}
+    ParallelRenderer(const std::size_t hardwareConcurrency) : hardwareConcurrency(hardwareConcurrency) {}
     void render(const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const int maxDepth) const override {
         int estimate = samplesPerPixel / static_cast<int>(hardwareConcurrency);
         int localSamplesPerPixel = samplesPerPixel % static_cast<int>(hardwareConcurrency) == 0 ? estimate : estimate + 1;
