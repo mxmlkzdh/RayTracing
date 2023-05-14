@@ -8,7 +8,7 @@
 
 namespace RayTracing {
 
-class ImageTexture: public Texture {
+class ImageTexture : public Texture {
 private:
     unsigned char* data;
     int width;
@@ -16,7 +16,7 @@ private:
     int bytesPerScanline;
     const static int BYTES_PER_PIXEL = 3;
 public:
-    ImageTexture(): data(nullptr), width(0), height(0), bytesPerScanline(0) {}
+    ImageTexture() : data(nullptr), width(0), height(0), bytesPerScanline(0) {}
     ImageTexture(const char* filename) {
         int componentsPerPixel = BYTES_PER_PIXEL;
         data = stbi_load(filename, &width, &height, &componentsPerPixel, componentsPerPixel);
