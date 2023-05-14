@@ -7,12 +7,12 @@
 
 namespace RayTracing {
 
-class DiffuseLight: public Material {
+class DiffuseLight : public Material {
 public:
     std::shared_ptr<Texture> emitTexture;
 public:
-    DiffuseLight(const Color& color): emitTexture(std::make_shared<SolidColor>(color)) {}
-    DiffuseLight(const std::shared_ptr<Texture> emitTexture): emitTexture(emitTexture) {}
+    DiffuseLight(const Color& color) : emitTexture(std::make_shared<SolidColor>(color)) {}
+    DiffuseLight(const std::shared_ptr<Texture> emitTexture) : emitTexture(emitTexture) {}
     bool scatter(const Ray&, const HitRecord&, Color&, Ray&) const override {
         return false;
     }

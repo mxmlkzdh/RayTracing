@@ -6,11 +6,11 @@
 
 namespace RayTracing {
 
-class Dielectric: public Material {
+class Dielectric : public Material {
 public:
     double refractionIndex;
 public:
-    Dielectric(const double refractionIndex): refractionIndex(refractionIndex) {}
+    Dielectric(const double refractionIndex) : refractionIndex(refractionIndex) {}
     bool scatter(const Ray& incidentRay, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const override {
         attenuation = Color(1.0, 1.0, 1.0);
         double refractiveIndicesRatio = record.outside ? (1.0 / refractionIndex) : refractionIndex;

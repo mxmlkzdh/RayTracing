@@ -8,12 +8,12 @@
 
 namespace RayTracing {
 
-class Lambertian: public Material {
+class Lambertian : public Material {
 public:
     std::shared_ptr<Texture> albedo;
 public:
-    Lambertian(const Color& albedo): albedo(std::make_shared<SolidColor>(albedo)) {}
-    Lambertian(const std::shared_ptr<Texture> albedo): albedo(albedo) {}
+    Lambertian(const Color& albedo) : albedo(std::make_shared<SolidColor>(albedo)) {}
+    Lambertian(const std::shared_ptr<Texture> albedo) : albedo(albedo) {}
     bool scatter(const Ray& incidentRay, const HitRecord& record, Color& attenuation, Ray& scatteredRay) const override {
         Vector3 scatterDirection = record.normal + randomUnitVector();
         if (nearZero(scatterDirection)) { // Catch degenerate scatter directions
