@@ -35,7 +35,7 @@ public:
         record.point = ray.at(record.time);
         UnitVector outwardNormal = (record.point - center) / radius;
         record.setNormal(ray, outwardNormal);
-        getSphereUV(outwardNormal, record.u, record.v);
+        setSphereUV(outwardNormal, record.u, record.v);
         return true;
     };
     bool boundingBox(const double, const double, AABB& outputBox) const override {
@@ -43,7 +43,7 @@ public:
         return true;
     }
 private:
-    void getSphereUV(const Vector3& outwardNormal, double& u, double& v) const {
+    void setSphereUV(const Vector3& outwardNormal, double& u, double& v) const {
         const double theta = std::acos(-outwardNormal.y);
         const double phi = std::atan2(-outwardNormal.z, outwardNormal.x) + Constants::PI;
         u = phi / (2.0 * Constants::PI);
