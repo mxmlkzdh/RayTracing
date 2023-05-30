@@ -8,7 +8,7 @@ class SolidColor : public Texture {
 public:
     Color color;
 public:
-    SolidColor() {}
+    SolidColor() = default;
     SolidColor(const Color& color) : color(color) {}
     SolidColor(const double red, const double green, const double blue) : color(Color(red, green, blue)) {}
     Color value(const double, const double, const Point&) const override {
