@@ -20,7 +20,8 @@ public:
     Scene(const Color& backgroundColor) : backgroundColor(backgroundColor) {
         auto earthTexture = std::make_shared<RayTracing::ImageTexture>("data/earthmap.jpg");
         auto earthSurface = std::make_shared<RayTracing::Lambertian>(earthTexture);
-        auto checkerGround = std::make_shared<RayTracing::CheckerTexture>(RayTracing::Color(0.01, 0.01, 0.01), RayTracing::Color(0.99, 0.99, 0.99));
+        auto checkerGround = std::make_shared<RayTracing::CheckerTexture>(RayTracing::Color(0.01, 0.01, 0.01),
+            RayTracing::Color(0.99, 0.99, 0.99));
         auto materialGround = std::make_shared<RayTracing::Lambertian>(checkerGround);
         auto materialCenter = std::make_shared<RayTracing::Lambertian>(RayTracing::Color(0.0, 0.1, 0.3));
         auto materialLeft = std::make_shared<RayTracing::DiffuseLight>(RayTracing::Color(1, 1, 1));

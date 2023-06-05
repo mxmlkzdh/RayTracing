@@ -21,7 +21,8 @@ private:
 public:
     Camera(const Point& lookFrom, const Point& lookAt, const Vector3& vUp,
         const double vFoV, const double aspectRatio, const double aperture = 0.0,
-        const double focusDistance = 1.0, const double openTime = 0.0, const double closeTime = 0.0) : origin(lookFrom), lensRadius(aperture / 2.0), openTime(openTime), closeTime(closeTime) {
+        const double focusDistance = 1.0, const double openTime = 0.0, const double closeTime = 0.0) :
+        origin(lookFrom), lensRadius(aperture / 2.0), openTime(openTime), closeTime(closeTime) {
         const double theta = Util::degreesToRadians(vFoV);
         const double height = std::tan(theta / 2.0);
         const double viewportHeight = 2.0 * height;
@@ -37,9 +38,11 @@ public:
         if (lensRadius > 0.0) {
             Vector3 random = lensRadius * randomInUnitDisk();
             Vector3 offset = random.x * u + random.y * v;
-            return Ray(origin + offset, lowerLeftCorner + (s * horizontal) + (t * vertical) - origin - offset, Util::random(openTime, closeTime));
+            return Ray(origin + offset, lowerLeftCorner + (s * horizontal) + (t * vertical) - origin - offset,
+                Util::random(openTime, closeTime));
         } else {
-            return Ray(origin, lowerLeftCorner + (s * horizontal) + (t * vertical) - origin, Util::random(openTime, closeTime));
+            return Ray(origin, lowerLeftCorner + (s * horizontal) + (t * vertical) - origin,
+                Util::random(openTime, closeTime));
         }
     }
 };
