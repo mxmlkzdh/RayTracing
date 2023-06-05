@@ -18,7 +18,8 @@ public:
 private:
     World sides;
 public:
-    Cube(const Point& min, const Point& max, const std::shared_ptr<Material> material) : min(min), max(max), material(material) {
+    Cube(const Point& min, const Point& max, const std::shared_ptr<Material> material) : min(min), max(max),
+        material(material) {
         sides.add(std::make_shared<XYRectangle>(min.x, max.x, min.y, max.y, max.z, material));
         sides.add(std::make_shared<XYRectangle>(min.x, max.x, min.y, max.y, min.z, material));
         sides.add(std::make_shared<XZRectangle>(min.x, max.x, min.z, max.z, max.y, material));

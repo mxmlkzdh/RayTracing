@@ -16,7 +16,8 @@ public:
     double y;
     std::shared_ptr<Material> material;
 public:
-    XZRectangle(const double x0, const double x1, const double z0, const double z1, const double y, const std::shared_ptr<Material> material)
+    XZRectangle(const double x0, const double x1, const double z0, const double z1, const double y,
+        const std::shared_ptr<Material> material)
         : x0(x0), x1(x1), z0(z0), z1(z1), y(y), material(material) {
     }
     bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {

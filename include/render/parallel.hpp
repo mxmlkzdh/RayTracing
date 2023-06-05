@@ -21,15 +21,18 @@ public:
     std::size_t hardwareConcurrency;
 public:
     ParallelRenderer(const std::size_t hardwareConcurrency) : hardwareConcurrency(hardwareConcurrency) {}
-    void render(const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const int maxDepth) const override {
+    void render(const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel,
+        const int maxDepth) const override {
         int estimate = samplesPerPixel / static_cast<int>(hardwareConcurrency);
         int localSamplesPerPixel = samplesPerPixel % static_cast<int>(hardwareConcurrency) == 0 ? estimate : estimate + 1;
         std::vector<std::thread> threads;
         threads.reserve(hardwareConcurrency);
         for (std::size_t p = 0; p < hardwareConcurrency - 1; p++) {
-            threads.push_back(std::thread(renderTask, p, image, scene, camera, localSamplesPerPixel, hardwareConcurrency, maxDepth, false));
+            threads.push_back(std::thread(renderTask, p, image, scene, camera, localSamplesPerPixel, hardwareConcurrency,
+                maxDepth, false));
         }
-        renderTask(hardwareConcurrency - 1, image, scene, camera, localSamplesPerPixel, hardwareConcurrency, maxDepth, true); // Run one instance on the main thread to show progress!
+        renderTask(hardwareConcurrency - 1, image, scene, camera, localSamplesPerPixel, hardwareConcurrency, maxDepth,
+            true); // Run one instance on the main thread to show progress!
         for (std::thread& thread : threads) {
             thread.join();
         }
@@ -64,17 +67,20 @@ public:
         outputFile.close();
     }
 private:
-    static void renderTask(const int id, const Image& image, const Scene& scene, const Camera& camera, const int samplesPerPixel, const std::size_t hardwareConcurrency, const int maxDepth, const bool showProgress) {
+    static void renderTask(const int id, const Image& image, const Scene& scene, const Camera& camera,
+        const int samplesPerPixel, const std::size_t hardwareConcurrency, const int maxDepth, const bool showProgress) {
         std::string localFileName = std::string(BUILD_DIRECTORY) + "raw." + std::to_string(id);
         std::ofstream outputFile(localFileName);
         if (outputFile.is_open()) {
             if (showProgress) {
                 std::cout << "Image Dimensions: " << image.width << " x " << image.height << " | Samples Per Pixel: "
-                    << samplesPerPixel * static_cast<int>(hardwareConcurrency) << " | Running on " << hardwareConcurrency << " threads" << std::endl;
+                    << samplesPerPixel * static_cast<int>(hardwareConcurrency) << " | Running on " << hardwareConcurrency
+                    << " threads" << std::endl;
             }
             for (int j = image.height - 1; j >= 0; j--) {
                 if (showProgress) {
-                    std::cout << "\rProgress: " << 100 - static_cast<int>((static_cast<double>(j) / (image.height - 1)) * 100) << "% " << std::flush;
+                    std::cout << "\rProgress: " <<
+                        100 - static_cast<int>((static_cast<double>(j) / (image.height - 1)) * 100) << "% " << std::flush;
                 }
                 for (int i = 0; i < image.width; i++) {
                     Color color(0, 0, 0);

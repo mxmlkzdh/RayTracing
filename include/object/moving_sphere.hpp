@@ -15,8 +15,10 @@ public:
     double finalTime;
     std::shared_ptr<Material> material;
 public:
-    MovingSphere(const Point& initCenter, const Point& finalCenter, const double radius, const double initTime, const double finalTime, std::shared_ptr<Material> material)
-        : initCenter(initCenter), finalCenter(finalCenter), radius(radius), initTime(initTime), finalTime(finalTime), material(material) {
+    MovingSphere(const Point& initCenter, const Point& finalCenter, const double radius, const double initTime,
+        const double finalTime, std::shared_ptr<Material> material)
+        : initCenter(initCenter), finalCenter(finalCenter), radius(radius), initTime(initTime), finalTime(finalTime),
+        material(material) {
     }
     bool hit(const Ray& ray, const double min, const double max, HitRecord& record) const override {
         const Vector3 oc = ray.origin - center(ray.time);
@@ -44,8 +46,10 @@ public:
         return true;
     };
     bool boundingBox(const double initTime, const double finalTime, AABB& outputBox) const override {
-        const AABB box0(center(initTime) - Vector3(radius, radius, radius), center(initTime) + Vector3(radius, radius, radius));
-        const AABB box1(center(finalTime) - Vector3(radius, radius, radius), center(finalTime) + Vector3(radius, radius, radius));
+        const AABB box0(center(initTime) - Vector3(radius, radius, radius), center(initTime) +
+            Vector3(radius, radius, radius));
+        const AABB box1(center(finalTime) - Vector3(radius, radius, radius), center(finalTime) +
+            Vector3(radius, radius, radius));
         outputBox = surroundingBox(box0, box1);
         return true;
     }
